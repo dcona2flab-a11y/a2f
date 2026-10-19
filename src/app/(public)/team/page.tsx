@@ -6,7 +6,7 @@ import TeamPage from "@/components/public/team/TeamPage";
 import { DEFAULT_CONTENT } from "@/config/defaults";
 import { getMembers, getProfessor } from "@/services/team";
 
-export const metadata: Metadata = { title: "Team" };
+export const metadata: Metadata = { title: "Team", alternates: { canonical: "/team" } };
 
 // Team: intro, professor, Student, Alumni. An empty Student / Alumni list hides its section.
 // The admin (/admin/team) renders the same components with editing composed in.

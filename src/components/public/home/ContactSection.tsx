@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import glyph from "@/assets/home/contact-glyph.svg";
+import { telHref } from "@/lib/utils/phone";
 import type { Settings } from "@/types/content";
 import styles from "./ContactSection.module.css";
 
@@ -34,7 +35,7 @@ export default function ContactSection({ contact, renderDetails = (details) => d
           </address>
           <p className={styles.block}>
             {contact.phone && (
-              <a className={styles.line} href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`}>
+              <a className={styles.line} href={telHref(contact.phone)}>
                 {contact.phone}
               </a>
             )}

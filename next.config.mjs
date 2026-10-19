@@ -14,6 +14,21 @@ const nextConfig = {
       ...(publicationUrl ? [{ source: "/publication", destination: publicationUrl, permanent: false }] : []),
     ];
   },
+  // No other site may frame these pages (clickjacking, mainly the admin). These headers do
+  // not limit what the pages themselves load (images, fonts, Notion links).
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        ],
+      },
+    ];
+  },
   images: {
     // Any Vercel Blob public store, so moving to another account's store needs no config change.
     remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],

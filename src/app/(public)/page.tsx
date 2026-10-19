@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import AwardSection from "@/components/public/home/AwardSection";
 import ContactSection from "@/components/public/home/ContactSection";
 import HomeCollage from "@/components/public/home/HomeCollage";
@@ -9,6 +10,8 @@ import WhySection from "@/components/public/home/WhySection";
 import { getAwards } from "@/services/awards";
 import { getHomeContent } from "@/services/home";
 import { getSettings } from "@/services/settings";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Home. The admin (/admin) renders the same sections with editing added around them.
 export default async function HomePage() {

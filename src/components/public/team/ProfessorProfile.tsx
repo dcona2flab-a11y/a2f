@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import glyph from "@/assets/team/contact-glyph-green.svg";
 import { PROFESSOR_SECTIONS, type ProfessorSectionKey } from "@/config/team";
+import { telHref } from "@/lib/utils/phone";
 import type { ImageRef, Professor } from "@/types/content";
 import ProfessorPhotos from "./ProfessorPhotos";
 import styles from "./ProfessorProfile.module.css";
@@ -21,7 +22,6 @@ export function professorSubtitle({ nameKo, title, department }: Professor): str
   return [who, department].filter(Boolean).join(", ");
 }
 
-const telHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, "")}`;
 
 // Professor block: name + subtitle, contact (own fields, not the site contact), photos and the
 // four sections. 365: contact beside the photo, sections below; 768: photo left, sections

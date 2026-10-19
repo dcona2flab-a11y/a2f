@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Hanken_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
-import { getSiteUrl, isSiteUrlExplicit } from "@/config/site";
+import { SITE, getSiteUrl, isSiteUrlExplicit } from "@/config/site";
 import "@/styles/tokens.css";
 import "@/styles/typography.css";
 import "@/styles/utilities.css";
@@ -23,10 +23,13 @@ const PRETENDARD_CSS =
 
 // Absolute URLs from the shared site URL. Until the final domain is set, every page is
 // noindex as well (robots.txt alone does not keep a linked page out of the index).
+// Icons and the link-preview image are the files icon.svg, apple-icon.png and
+// opengraph-image.png in this folder (Next.js file conventions).
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  title: "A2F",
-  description: "Access To Flux",
+  title: { default: SITE.name, template: `%s | ${SITE.name}` },
+  description: SITE.description,
+  openGraph: { type: "website", siteName: SITE.name, locale: "ko_KR", title: SITE.name, description: SITE.description },
   ...(isSiteUrlExplicit() ? {} : { robots: { index: false, follow: false } }),
 };
 

@@ -1,5 +1,7 @@
 export const SITE = {
   name: "A2F Design Lab",
+  // Search results and link previews (not shown on the page itself).
+  description: "인제대학교 A2F Design Lab — Approach 2 Flux, Access 2 Frame",
   // Fallback is empty so a missing value is visible rather than pointing somewhere wrong.
   publicationUrl: process.env.NOTION_PUBLICATION_URL ?? "",
 } as const;
