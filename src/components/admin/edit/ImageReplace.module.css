@@ -10,6 +10,7 @@
 
 .button {
   position: absolute;
+  z-index: 2;
   right: var(--space-12);
   bottom: var(--space-12);
 
@@ -41,6 +42,49 @@
   opacity: 0.8;
 }
 
+/* The uploaded file shown over the current image until 저장 / 취소. */
+.preview {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  overflow: hidden;
+
+  background: var(--color-tag-bg);
+  outline: 2px solid var(--color-green);
+  outline-offset: -2px;
+}
+
+.previewImage {
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: var(--space-12);
+  left: var(--space-12);
+
+  padding: var(--space-4) var(--space-8);
+
+  font-family: var(--font-ko);
+  font-size: 12px;
+  font-weight: 600;
+
+  color: var(--color-white);
+  background: var(--color-green);
+}
+
+.actions {
+  position: absolute;
+  z-index: 2;
+  right: var(--space-12);
+  bottom: var(--space-12);
+
+  display: flex;
+
+  gap: var(--space-8);
+}
+
 /* Visually hidden but focusable/operable through its label. */
 .input {
   position: absolute;
@@ -66,6 +110,7 @@
 
 .fill .error {
   position: absolute;
+  z-index: 2;
   right: var(--space-12);
   bottom: calc(var(--space-12) + 44px);
   left: var(--space-12);
