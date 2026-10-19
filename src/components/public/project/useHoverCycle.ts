@@ -4,9 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 // ani2 (Figma "Hover type 2" 0:2875): while the pointer is on a card, the photos follow one
 // another every ~235 ms (Figma: 0.0976 × 2.409 s), each crossfading in; back to the first photo
-// when the pointer leaves. Only on hover-capable desktop layouts (1440+) without reduced motion.
+// when the pointer leaves. With a mouse at every width (the card checks pointerType), not with
+// reduced motion.
 export const HOVER_CYCLE_INTERVAL_MS = 235;
-const CYCLE_QUERY = "(hover: hover) and (min-width: 1440px) and (prefers-reduced-motion: no-preference)";
+const CYCLE_QUERY = "(hover: hover) and (prefers-reduced-motion: no-preference)";
 
 export function useHoverCycle(count: number) {
   const [index, setIndex] = useState(0);

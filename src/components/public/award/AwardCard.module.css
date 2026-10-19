@@ -81,8 +81,7 @@
   display: none;
 }
 
-/* Below 1440, and on devices without a real hover, the date follows the label (and wraps with
-   it as one unit). */
+/* On devices without a real hover the date follows the label (and wraps with it as one unit). */
 .dateGroup {
   display: inline-flex;
   align-items: center;
@@ -195,23 +194,28 @@
 }
 
 /*
- * ani1 only where a real hover exists (mouse / trackpad). A touch or coarse-pointer device keeps
- * the base rules at 1440+ as well: no wipe, label in its normal state, date always shown (as at
- * 365/768), so no information depends on hover. Keyboard focus gets the same state as hover.
+ * ani1 wherever a real hover exists (mouse / trackpad), at every width. A touch or coarse-pointer
+ * device keeps the base rules: no wipe, label in its normal state, date always shown, so no
+ * information depends on hover. Keyboard focus gets the same state as hover.
  */
-@media (min-width: 1440px) and (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) {
   /*
    * ani1 (a2f_ani1.mp4 / Figma 0:2757). Hover in: the green box with white text wipes in from
    * the left (~0.4 s, easing out); in its last ~0.1 s the date and the square appear, sliding a
    * few px into place. Hover out: the same, reversed and quicker.
-   * The row starts 2px left so the label text keeps the card edge while its box has 2px padding;
-   * the date sits right of the label, outside the flow (no layout shift), clipped by the row.
+   * The row starts 2px left so the label text keeps the card edge while its box has 2px padding.
+   * Label and date are flex items 10px apart (Figma 0:283 → 0:285); when a long label leaves no
+   * room, the date takes the next line. Its space is kept while hidden, so hovering never moves
+   * the text below.
    */
   .labelRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    column-gap: 10px;
     margin-left: -2px;
     padding-left: 2px;
-
-    overflow: hidden;
   }
 
   .label {
@@ -239,10 +243,6 @@
   }
 
   .dateGroup {
-    position: absolute;
-    top: 0;
-    left: calc(100% + 10px);   /* Figma 0:283 → 0:285: label box to square 10 */
-
     margin-left: 0;
 
     opacity: 0;
@@ -272,7 +272,7 @@
 }
 
 /* Reduced motion: same states, no movement. */
-@media (min-width: 1440px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
   .labelWipe,
   .dateGroup,
   .card:hover .labelWipe,
