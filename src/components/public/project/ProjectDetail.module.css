@@ -1,0 +1,292 @@
+/*
+ * Figma project detail: 365 0:1399 / 768 0:1778 / 1440 0:2598 / 1920 0:820.
+ * Below 1440 one column (title/date → body → tags → images → member); 1440+ two columns
+ * (1440: 411 | 132 | 737 of 1280; 1920: 553 | 176 | 991 of 1720), other images below.
+ * Images keep their original ratio (no crop).
+ */
+.main {
+  margin: 0;
+  padding: 30px var(--page-padding-mobile) 98px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.date {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-text-secondary);
+}
+
+/* One column: the text column dissolves so the images come between tags and member. */
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  display: contents;
+}
+
+.bodyCell { order: 1; }
+.tags { order: 2; }
+.leadCell { order: 3; }
+.restCell { order: 4; }
+.memberCell { order: 5; }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 6px;
+  margin: 30px 0 0;
+}
+
+.text > .tags:first-child {
+  margin-top: 0;   /* no body */
+}
+
+.leadCell {
+  margin-top: 40px;
+}
+
+.restCell {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.memberCell {
+  margin-top: 60px;
+}
+
+.image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+.body {
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: var(--tracking-en);
+  white-space: pre-line;
+
+  color: var(--color-text);
+}
+
+.paragraph {
+  margin: 0;
+}
+
+.scrollToTop {
+  margin: 59px 0 0;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 30px var(--page-padding-tablet) 258px;
+  }
+
+  .detail {
+    gap: 40px;
+  }
+
+  .header {
+    gap: 14px;
+  }
+
+  .title {
+    font-size: 50px;
+    line-height: 50px;
+  }
+
+  .date {
+    font-size: 16px;
+    line-height: normal;
+  }
+
+  .tags {
+    margin-top: 40px;
+  }
+
+  .leadCell {
+    margin-top: 60px;
+  }
+
+  .restCell {
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .body {
+    font-size: 15px;
+    line-height: 26px;
+    letter-spacing: 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    padding: 100px var(--page-padding-desktop) 302px;
+  }
+
+  .detail {
+    gap: 80px;
+  }
+
+  .header {
+    max-width: 40.547%;   /* 519 of 1280 */
+
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 60px;
+    line-height: 62px;
+  }
+
+  .date {
+    font-size: 20px;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 411fr) minmax(0, 737fr);
+
+    column-gap: 10.313%;   /* 132 of 1280 */
+  }
+
+  /* Left column: body, tags, member pushed down to end with the representative image. */
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .tags {
+    gap: 14px;
+    margin-top: 80px;
+  }
+
+  .memberCell {
+    margin-top: auto;
+    padding-top: 80px;
+  }
+
+  .leadCell {
+    grid-column: 2;
+    grid-row: 1;
+
+    margin-top: 0;
+  }
+
+  .restCell {
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .body {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .paragraph + .paragraph {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .main {
+    padding: 100px var(--page-padding-large) 80px;
+  }
+
+  .detail {
+    gap: 100px;
+  }
+
+  .header {
+    max-width: none;
+
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 76px;
+    line-height: 80px;
+  }
+
+  .date {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .content {
+    grid-template-columns: minmax(0, 553fr) minmax(0, 991fr);
+
+    column-gap: 10.233%;   /* 176 of 1720 */
+  }
+
+  .tags {
+    gap: 10px;
+    margin-top: 60px;
+  }
+
+  .memberCell {
+    padding-top: 60px;
+  }
+
+  .restCell {
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .body {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .paragraph + .paragraph {
+    margin-top: 36px;
+  }
+}

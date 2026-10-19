@@ -1,0 +1,44 @@
+.dialog {
+  width: min(400px, calc(100% - 2 * var(--page-padding-mobile)));
+  box-sizing: border-box;
+
+  padding: var(--space-24);
+
+  font-family: var(--font-base);
+
+  color: var(--color-text);
+  background: var(--color-white);
+
+  border: 1px solid var(--color-line);
+  border-radius: 0;
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.2);
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 18px;
+  font-weight: 600;
+
+  color: var(--color-black);
+}
+
+.message {
+  margin: var(--space-8) 0 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: var(--space-8);
+  margin-top: var(--space-20);
+}

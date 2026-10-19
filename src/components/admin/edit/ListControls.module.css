@@ -1,0 +1,45 @@
+/* Sits over the top-right corner of a list item (the item is position: relative). */
+.controls {
+  position: absolute;
+  top: var(--space-8);
+  right: var(--space-8);
+  z-index: 1;
+
+  display: flex;
+
+  gap: var(--space-4);
+}
+
+.button {
+  min-width: 44px;
+  min-height: 36px;
+
+  padding: var(--space-4) var(--space-12);
+
+  font-family: var(--font-ko);
+  font-size: 13px;
+  font-weight: 600;
+
+  color: var(--color-white);
+  background: var(--color-green);
+
+  border: 0;
+  border-radius: 0;
+
+  cursor: pointer;
+}
+
+.danger {
+  background: var(--color-danger);
+}
+
+.button:disabled {
+  opacity: 0.5;
+
+  cursor: progress;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}

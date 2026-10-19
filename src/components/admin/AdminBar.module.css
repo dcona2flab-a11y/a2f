@@ -1,0 +1,86 @@
+/* While the AdminBar is on the page, the sticky site header sits right below it. */
+:global(html):has(.bar) {
+  --sticky-offset: var(--admin-bar-height);
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-admin-bar);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: var(--admin-bar-height);
+  box-sizing: border-box;
+
+  gap: var(--space-16);
+  padding: 0 var(--page-padding-mobile);
+
+  font-family: var(--font-base);
+  font-size: 14px;
+
+  color: var(--color-black);
+  background: var(--color-white);
+
+  border-bottom: 2px solid var(--color-green);
+}
+
+@media (min-width: 768px) {
+  .bar {
+    padding-inline: var(--page-padding-tablet);
+  }
+}
+
+@media (min-width: 1440px) {
+  .bar {
+    padding-inline: var(--page-padding-desktop);
+  }
+}
+
+@media (min-width: 1920px) {
+  .bar {
+    padding-inline: var(--page-padding-large);
+  }
+}
+
+.mode {
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--color-green);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-16);
+}
+
+.viewLink {
+  color: var(--color-black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  transition: color var(--transition-fast);
+}
+
+.viewLink:hover {
+  color: var(--color-green);
+}
+
+.viewLink:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.user {
+  font-family: var(--font-en);
+
+  color: var(--color-text-secondary);
+}

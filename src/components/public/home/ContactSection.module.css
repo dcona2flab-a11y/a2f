@@ -1,0 +1,150 @@
+/*
+ * Figma Contact: 365 0:1310 / 1440 0:2317 / 1920 0:319.
+ * Shown at every breakpoint (the 768 Home frame omits it; see the 768 rule below).
+ */
+.section {
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.block {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.line {
+  display: block;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+a.line:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* A2F glyph in front of "Lab, …" (Figma 365: 24×15, 1px in, top 6px below the line top) */
+.glyph {
+  display: inline-block;
+
+  width: 24px;
+  height: auto;
+
+  margin: 0 6px 0 1px;
+
+  vertical-align: -5px;
+}
+
+/* 768: no contact in the Figma 768 frame (treated as an omission): the title follows the
+   768 section title (Award & Activity 36/37), the text the en) B1 style (18/28). */
+@media (min-width: 768px) {
+  .section {
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 37px;
+  }
+
+  .details {
+    gap: 20px;
+  }
+
+  .block {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .glyph {
+    width: 29px;
+
+    vertical-align: -5px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    gap: 60px;
+  }
+
+  .title {
+    font-size: 60px;
+    line-height: 62px;
+  }
+
+  .details {
+    gap: 30px;
+  }
+
+  .block {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .glyph {
+    width: 40px;
+
+    margin-right: 6px;
+
+    vertical-align: -6px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .section {
+    gap: 80px;
+  }
+
+  .title {
+    font-size: 76px;
+    line-height: 80px;
+  }
+
+  .details {
+    gap: 40px;
+  }
+
+  .block {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .glyph {
+    width: 52px;
+
+    margin-right: 9px;
+
+    vertical-align: -9px;
+  }
+}

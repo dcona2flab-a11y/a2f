@@ -1,0 +1,183 @@
+/*
+ * People of an award / the member of a project (Figma Award detail 0:905, Project detail
+ * 0:835): square photo (gray gradient without one), name, degree ■ role.
+ * 365: 54px, text centred; 768 80 / 1440 90 / 1920 100px, text on the photo's bottom line.
+ */
+
+.people {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.photo {
+  position: relative;
+
+  flex-shrink: 0;
+
+  width: 54px;
+  height: 54px;
+
+  overflow: hidden;
+
+  /* Figma placeholder when there is no profile photo */
+  background: linear-gradient(to bottom, var(--color-text-secondary), rgb(250 250 250 / 0));
+}
+
+.photoImage {
+  object-fit: cover;
+}
+
+.personText {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.personMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 6px;
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-text-secondary);
+}
+
+.personDetail {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+}
+
+.personSquare {
+  width: 3px;
+  height: 3px;
+
+  background: var(--color-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .people {
+    gap: 30px;
+  }
+
+  .person {
+    align-items: flex-end;
+  }
+
+  .photo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .personText {
+    gap: 2px;
+  }
+
+  .name {
+    font-size: 18px;
+    line-height: normal;
+  }
+
+  .personMeta {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .people {
+    gap: 40px;
+  }
+
+  .person {
+    gap: 18px;
+  }
+
+  .photo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .personMeta,
+  .personDetail {
+    gap: 10px;
+  }
+
+  .personMeta {
+    font-size: 16px;
+    line-height: normal;
+  }
+
+  .personSquare {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .people {
+    gap: 60px;
+  }
+
+  .person {
+    gap: 20px;
+  }
+
+  .photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .personText {
+    gap: 0;
+  }
+
+  .name {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .personMeta {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

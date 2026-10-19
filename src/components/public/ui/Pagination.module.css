@@ -1,0 +1,166 @@
+/*
+ * Figma pagination: 365 0:1294 / 768 0:1703 / 1440 0:2300 / 1920 0:304.
+ * Arrows are the Figma SVGs used as masks so the colour follows the state.
+ */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* 365: numbers | previous | next across the width */
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+
+  border: 0;
+  border-radius: 0;
+
+  cursor: pointer;
+}
+
+.current {
+  font-weight: 600;
+
+  color: var(--color-black);
+}
+
+.arrow {
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  background: var(--color-green);
+
+  border: 0;
+  border-radius: 0;
+
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+
+  cursor: pointer;
+}
+
+.arrow:disabled {
+  background: var(--color-text-secondary);
+
+  cursor: default;
+}
+
+.previous {
+  mask-image: url("../../../assets/icons/arrow-prev-768.svg");
+}
+
+.next {
+  mask-image: url("../../../assets/icons/arrow-next-768.svg");
+}
+
+.page:focus-visible,
+.arrow:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 0;
+}
+
+@media (min-width: 768px) {
+  .pagination {
+    justify-content: flex-start;
+
+    gap: 10px;
+  }
+
+  .page {
+    font-size: 15px;
+    line-height: normal;
+  }
+
+  .next {
+    margin-left: 2px;   /* arrows 12px apart (numbers → arrows 10px) */
+  }
+}
+
+@media (min-width: 1440px) {
+  .pagination {
+    gap: 16px;
+  }
+
+  .pages {
+    gap: 10px;
+  }
+
+  .page,
+  .arrow {
+    width: 42px;
+    height: 42px;
+  }
+
+  .page {
+    font-size: 17px;
+  }
+
+  .next {
+    margin-left: 0;
+  }
+
+  .previous {
+    mask-image: url("../../../assets/icons/arrow-prev-1440.svg");
+  }
+
+  .next {
+    mask-image: url("../../../assets/icons/arrow-next-1440.svg");
+  }
+}
+
+@media (min-width: 1920px) {
+  .pagination,
+  .pages {
+    gap: 10px;
+  }
+
+  .page {
+    width: 52px;
+    height: 52px;
+
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .arrow {
+    width: 84px;
+    height: 52px;
+  }
+
+  .previous {
+    mask-image: url("../../../assets/icons/arrow-prev-1920.svg");
+  }
+
+  .next {
+    mask-image: url("../../../assets/icons/arrow-next-1920.svg");
+  }
+}

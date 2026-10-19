@@ -1,0 +1,235 @@
+/*
+ * Figma Research Fields: 365 0:1170 (2 col, 156×240) / 768 0:1566 (2 col, 344×381)
+ * / 1440 0:2154 (3 col, 411×460) / 1920 0:157 (3 col, 553×512).
+ * 365 shows title, icon and subtitle only; the description is kept in the data.
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+/* The cell's child (the card, or a wrapper around it) fills the row height. */
+.cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.cell > * {
+  flex: 1 1 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  min-height: 240px;
+  box-sizing: border-box;
+
+  padding: 14px;
+
+  background: linear-gradient(to bottom, #f3f3f3, var(--color-white));
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: var(--tracking-en);
+  text-wrap: balance;
+
+  color: var(--color-black);
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  align-self: stretch;
+
+  height: 100px;
+}
+
+.icon {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+
+  align-self: stretch;
+
+  gap: 4px;
+}
+
+.subtitle {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-wrap: balance;
+  word-break: keep-all;   /* Figma breaks Korean between words */
+
+  color: var(--color-black);
+}
+
+.description {
+  display: none;
+
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-weight: 400;
+
+  color: var(--color-text);
+}
+
+/* 365: the small drawings at their Figma size */
+.icon01 { width: 83px; }
+.icon02 { width: 117px; }
+.icon03 { width: 120px; }
+.icon04 { width: 111px; }
+.icon05 { width: 74px; }
+.icon06 { width: 117px; }
+
+@media (min-width: 768px) {
+  .grid {
+    gap: 20px;
+  }
+
+  .card {
+    min-height: 381px;
+
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .iconBox {
+    height: 179px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-wrap: wrap;
+  }
+
+  .description {
+    display: block;
+
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .icon01 { width: 169px; }
+  .icon02 { width: 260px; }
+  .icon03 { width: 251.5px; }
+  .icon04 { width: 214px; }
+  .icon05 { width: 132px; }
+  .icon06 { width: 275.6px; }
+}
+
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+  }
+
+  .card {
+    min-height: 460px;
+
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 22px;
+    line-height: normal;
+    letter-spacing: -0.05em;   /* Figma 1440: -1.1px */
+    text-wrap: wrap;
+  }
+
+  .iconBox {
+    height: 216px;
+  }
+
+  .text {
+    gap: 6px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    line-height: normal;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  .icon01 { width: 197.2px; }
+  .icon02 { width: 300px; }
+  .icon03 { width: 302px; }
+  .icon04 { width: 267.5px; }
+  .icon05 { width: 142.3px; }
+  .icon06 { width: 298.1px; }
+}
+
+@media (min-width: 1920px) {
+  .grid {
+    gap: 30px;
+  }
+
+  .card {
+    min-height: 512px;
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: var(--tracking-en);
+  }
+
+  .iconBox {
+    height: 240px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  .description {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .icon01 { width: 234px; }
+  .icon02 { width: 402px; }
+  .icon03 { width: 370px; }
+  .icon04 { width: 321px; }
+  .icon05 { width: 173px; }
+  .icon06 { width: 366px; }
+}

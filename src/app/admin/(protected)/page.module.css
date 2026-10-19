@@ -1,0 +1,5 @@
+/* Admin Home: the editing view always shows the final layout (no ani3 scroll motion), so every
+   photo and its "이미지 변경" control is visible from the start. ani1 stays. */
+.staticMotion {
+  --scroll-motion-timeline: none;
+}

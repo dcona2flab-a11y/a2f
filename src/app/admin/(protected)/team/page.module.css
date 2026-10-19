@@ -1,0 +1,9 @@
+/* Admin-only placeholder when the professor has no contact details. */
+.empty {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+
+  color: var(--color-text-secondary);
+}

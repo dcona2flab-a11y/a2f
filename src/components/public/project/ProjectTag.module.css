@@ -1,0 +1,73 @@
+/*
+ * Figma project tag (card 1920 0:578 / 1440 0:2409 / 768 0:1924 / 365 0:1452; detail 1440 0:2608).
+ * Icons are the 1920 drawings scaled per breakpoint (365/768 ×0.714, 1440 ×0.857).
+ */
+.tag {
+  --icon-scale: 0.714;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+  padding: 2px 4px;
+
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+  white-space: nowrap;
+
+  color: var(--color-black);
+  background: var(--color-tag-bg);
+}
+
+.icon {
+  display: block;
+
+  width: calc(var(--icon-w) * var(--icon-scale));
+  height: auto;
+}
+
+.iconUxUi { --icon-w: 21px; }
+.iconBxBi { --icon-w: 28px; }
+.iconPlanning { --icon-w: 19px; }
+.iconGraphic { --icon-w: 21px; }
+.iconEtc { --icon-w: 17px; }
+
+@media (min-width: 768px) {
+  .tag {
+    gap: 7px;
+
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .tag {
+    --icon-scale: 0.857;
+
+    padding: 4px 10px;
+
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .detail {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .tag,
+  .detail {
+    --icon-scale: 1;
+
+    gap: 10px;
+    padding: 8px 14px;
+
+    font-size: 24px;
+    line-height: 36px;
+  }
+}

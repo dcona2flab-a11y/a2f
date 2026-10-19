@@ -1,0 +1,12 @@
+.media {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  background: var(--color-tag-bg);   /* empty slot */
+}
+
+.image {
+  object-fit: cover;
+}

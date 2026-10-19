@@ -1,0 +1,48 @@
+/* Admin-only form block (no Figma design). */
+.people {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-16);
+  margin: 0;
+  padding: var(--space-16);
+
+  border: 1px solid var(--color-line);
+}
+
+.legend {
+  padding: 0 var(--space-4);
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--color-black);
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: var(--space-12);
+  padding-bottom: var(--space-16);
+
+  border-bottom: 1px solid var(--color-line);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  width: 100%;
+
+  gap: var(--space-12);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: var(--space-8);
+}

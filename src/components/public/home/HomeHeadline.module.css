@@ -1,0 +1,130 @@
+/* Figma "Union" (headline): 365 269×65 / 768 465×108 / 1440 737×173 / 1920 991×232. */
+.headline {
+  margin: 0;
+}
+
+/* Two layers of the same SVG, stacked: line 1 shows the band above 55.8% of its height, line 2
+   the band below (the blank gap between the lines lies there at every breakpoint), so together
+   they are the plain image. The band (on .line) stays put; the image also keeps only its own line
+   (on .image, moving with it), so a line never shows through the other line's band. */
+.lines {
+  display: grid;
+}
+
+.line {
+  display: block;
+  grid-area: 1 / 1;
+}
+
+.line1 {
+  clip-path: inset(0 0 44.2% 0);
+}
+
+.line2 {
+  clip-path: inset(55.8% 0 0 0);
+}
+
+.line1 .image {
+  clip-path: inset(0 0 44.2% 0);
+}
+
+.line2 .image {
+  clip-path: inset(55.8% 0 0 0);
+}
+
+.image {
+  display: block;
+
+  width: 269px;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .image {
+    width: 465px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .image {
+    width: 737px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .image {
+    width: 991px;
+  }
+}
+
+/*
+ * Headline exit on scroll (a2f_ani3.mp4, 3.0–3.5 s; the prototype video is the reference for
+ * this part only). The lines stay where they are on screen (.lines counter-moves the scroll)
+ * while the lettering slides up inside each band at 0.3 × the page speed and leaves through the
+ * band's top edge. Both lines start together; line 2 (shorter band) is gone first.
+ * --headline-range = scroll at which line 1 is gone: 125 / 205 / 330 / 440 px.
+ * Reduced motion, unsupported browsers and `--scroll-motion-timeline: none` (admin): static.
+ */
+@keyframes headline-hold {
+  to {
+    translate: 0 var(--headline-range);
+  }
+}
+
+@keyframes headline-leave {
+  to {
+    translate: 0 calc(var(--headline-range) * -0.3);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .headline {
+      --headline-range: 125px;
+    }
+
+    .lines {
+      animation: headline-hold linear both;
+      animation-timeline: var(--scroll-motion-timeline, scroll(root));
+      animation-range: 0 var(--headline-range);
+    }
+
+    .line .image {
+      animation: headline-leave linear both;
+      animation-timeline: var(--scroll-motion-timeline, scroll(root));
+      animation-range: 0 var(--headline-range);
+    }
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .headline {
+      --headline-range: 205px;
+    }
+  }
+}
+
+@media (min-width: 1440px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .headline {
+      --headline-range: 330px;
+    }
+  }
+}
+
+@media (min-width: 1920px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .headline {
+      --headline-range: 440px;
+    }
+  }
+}
+
+@container style(--scroll-motion-timeline: none) {
+  .lines,
+  .line .image {
+    animation: none;
+  }
+}

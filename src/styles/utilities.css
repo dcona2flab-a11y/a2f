@@ -1,0 +1,16 @@
+/*
+ * Small shared utilities (CLAUDE.md §7B). Opt-in classes only.
+ */
+
+/* Hidden visually, still read by screen readers (e.g. the real <h1> text behind an SVG headline). */
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  clip-path: inset(50%);
+}

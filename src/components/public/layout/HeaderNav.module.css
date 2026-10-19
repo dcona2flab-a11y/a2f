@@ -1,0 +1,48 @@
+/* Figma GNB text: 1440 17px / 1920 18px (style "GNB"), Hanken Grotesk Regular, letter-spacing 8%, uppercase. */
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.link {
+  font-family: var(--font-en);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+/* Current page: SemiBold + green (Figma 1920 active variants; applied at 1440 too). */
+.active {
+  font-weight: 600;
+
+  color: var(--color-green);
+}
+
+/* Publication before NOTION_PUBLICATION_URL is set. */
+.disabled {
+  color: var(--color-text-secondary);
+
+  cursor: not-allowed;
+}
+
+@media (min-width: 1920px) {
+  .link {
+    font-size: 18px;
+  }
+}

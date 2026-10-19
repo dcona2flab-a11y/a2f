@@ -1,0 +1,331 @@
+/*
+ * Figma Award card: 365 0:1268 / 768 0:1685 / 1440 0:2273 / 1920 0:276 (+ "Hover type 1" 0:2757).
+ * Label row: label, then (date group) square + date.
+ * Image height differs per breakpoint and per position in the row (cover crop).
+ */
+.card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.card:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.media {
+  position: relative;
+
+  overflow: hidden;
+
+  background: var(--color-tag-bg);
+}
+
+.image {
+  object-fit: cover;
+}
+
+/* 365: 325×208 / 325×210 / 325×208 */
+.position0 .media,
+.position2 .media {
+  aspect-ratio: 325 / 208;
+}
+
+.position1 .media {
+  aspect-ratio: 325 / 210;
+}
+
+.event {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 6px;
+  margin: 14px 0 0;
+
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.typeIcon {
+  flex-shrink: 0;
+
+  width: 14px;
+  height: 14px;
+
+  margin-top: 4px;   /* centred on the first line */
+}
+
+.labelRow {
+  margin: 6px 0 0;
+
+  font-family: var(--font-en);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-green);
+}
+
+.labelWipe {
+  display: none;
+}
+
+/* Below 1440, and on devices without a real hover, the date follows the label (and wraps with
+   it as one unit). */
+.dateGroup {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+  margin-left: 10px;
+
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+
+  background: var(--color-green);
+}
+
+.body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+
+  margin: 6px 0 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  /* 344×222 / 344×280 */
+  .position0 .media,
+  .position2 .media {
+    aspect-ratio: 344 / 222;
+  }
+
+  .position1 .media {
+    aspect-ratio: 344 / 280;
+  }
+
+  .event {
+    gap: 7px;
+    margin-top: 12px;
+
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .typeIcon {
+    width: 16px;
+    height: 16px;
+
+    margin-top: 4.5px;
+  }
+
+  .labelRow {
+    margin-top: 8px;
+  }
+
+  .body {
+    margin-top: 8px;
+
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@media (min-width: 1440px) {
+  /* 411×315 / 410×274 / 411×315 */
+  .position0 .media,
+  .position2 .media {
+    aspect-ratio: 411 / 315;
+  }
+
+  .position1 .media {
+    aspect-ratio: 410 / 274;
+  }
+
+  .event {
+    margin-top: 16px;
+
+    font-size: 17px;
+    line-height: 26px;
+  }
+
+  .typeIcon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .labelRow {
+    margin-top: 10px;
+
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .body {
+    margin-top: 10px;
+
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+/*
+ * ani1 only where a real hover exists (mouse / trackpad). A touch or coarse-pointer device keeps
+ * the base rules at 1440+ as well: no wipe, label in its normal state, date always shown (as at
+ * 365/768), so no information depends on hover. Keyboard focus gets the same state as hover.
+ */
+@media (min-width: 1440px) and (hover: hover) and (pointer: fine) {
+  /*
+   * ani1 (a2f_ani1.mp4 / Figma 0:2757). Hover in: the green box with white text wipes in from
+   * the left (~0.4 s, easing out); in its last ~0.1 s the date and the square appear, sliding a
+   * few px into place. Hover out: the same, reversed and quicker.
+   * The row starts 2px left so the label text keeps the card edge while its box has 2px padding;
+   * the date sits right of the label, outside the flow (no layout shift), clipped by the row.
+   */
+  .labelRow {
+    margin-left: -2px;
+    padding-left: 2px;
+
+    overflow: hidden;
+  }
+
+  .label {
+    position: relative;
+
+    display: inline-block;
+
+    padding: 0 2px;
+  }
+
+  .labelWipe {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    padding: 0 2px;
+
+    color: var(--color-white);
+    background: var(--color-green);
+
+    clip-path: inset(0 100% 0 0);
+
+    transition: clip-path 0.2s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+
+  .dateGroup {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 10px);   /* Figma 0:283 → 0:285: label box to square 10 */
+
+    margin-left: 0;
+
+    opacity: 0;
+    transform: translateX(-6px);
+
+    transition:
+      opacity 0.1s linear,
+      transform 0.1s ease-in;
+  }
+
+  .card:hover .labelWipe,
+  .card:focus-visible .labelWipe {
+    clip-path: inset(0);
+
+    transition: clip-path 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .card:hover .dateGroup,
+  .card:focus-visible .dateGroup {
+    opacity: 1;
+    transform: none;
+
+    transition:
+      opacity 0.12s linear 0.3s,
+      transform 0.15s ease-out 0.28s;
+  }
+}
+
+/* Reduced motion: same states, no movement. */
+@media (min-width: 1440px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .labelWipe,
+  .dateGroup,
+  .card:hover .labelWipe,
+  .card:hover .dateGroup,
+  .card:focus-visible .labelWipe,
+  .card:focus-visible .dateGroup {
+    transition: none;
+  }
+}
+
+@media (min-width: 1920px) {
+  /* 553×353 / 554×304 / 553×433 */
+  .position0 .media {
+    aspect-ratio: 553 / 353;
+  }
+
+  .position1 .media {
+    aspect-ratio: 554 / 304;
+  }
+
+  .position2 .media {
+    aspect-ratio: 553 / 433;
+  }
+
+  .event {
+    gap: 8px;
+    margin-top: 20px;
+
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .typeIcon {
+    width: 18px;
+    height: 18px;
+
+    margin-top: 5px;
+  }
+
+  .labelRow {
+    margin-top: 14px;
+
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .body {
+    -webkit-line-clamp: 3;
+
+    margin-top: 20px;
+    margin-right: 11px;   /* Figma 0:287 / 0:295 / 0:303: body 542–544 in a 553–554 card */
+
+    font-size: 18px;
+    line-height: 30px;
+  }
+}

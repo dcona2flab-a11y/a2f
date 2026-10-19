@@ -1,0 +1,305 @@
+/*
+ * Figma Award detail ("Home_NewsDetail"): 365 0:1480 / 768 0:1735 / 1440 0:2339 / 1920 0:892.
+ * Mobile-first one column (title → images → body → People); 1440+ two columns
+ * (left 519 | gap 133 | right 628 of 1280; 1920: 553 | 176 | 991 of 1720).
+ * Images keep their original ratio (no crop), like Project detail.
+ */
+.main {
+  margin: 0;
+  padding: 30px var(--page-padding-mobile) 100px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+
+  gap: 40px;
+}
+
+/* Title + meta ------------------------------------------------------------ */
+.header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 8px;
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-green);
+}
+
+.typeIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.square {
+  width: 3px;
+  height: 3px;
+
+  background: var(--color-green);
+}
+
+/* Content ------------------------------------------------------------------ */
+/* Below 1440 the text column dissolves so images can come first. */
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  display: contents;
+}
+
+.imagesCell {
+  order: -1;
+
+  margin-bottom: 20px;
+}
+
+.peopleCell {
+  margin-top: 60px;
+}
+
+.bodyCell + .peopleCell {
+  margin-top: 60px;
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+.body {
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 23px;
+  white-space: pre-line;
+
+  color: var(--color-text);
+}
+
+.paragraph {
+  margin: 0;
+}
+
+/* 768 ---------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .main {
+    padding: 30px var(--page-padding-tablet) 247px;
+  }
+
+  .detail {
+    gap: 60px;
+  }
+
+  .header {
+    gap: 14px;
+  }
+
+  .title {
+    font-size: 50px;
+    line-height: 50px;
+  }
+
+  .meta {
+    gap: 10px;
+
+    font-size: 16px;
+    line-height: 21px;
+  }
+
+  .typeIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .images {
+    gap: 14px;
+  }
+
+  .body {
+    font-size: 15px;
+    line-height: 26px;
+  }
+
+}
+
+/* 1440: two columns -------------------------------------------------------- */
+@media (min-width: 1440px) {
+  .main {
+    padding: 100px var(--page-padding-desktop) 368px;
+  }
+
+  .detail {
+    gap: 80px;
+  }
+
+  .header {
+    max-width: 49.063%;   /* 628 of 1280 */
+
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 60px;
+    line-height: 62px;
+  }
+
+  .meta {
+    font-size: 20px;
+    line-height: normal;
+  }
+
+  .typeIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 519fr) minmax(0, 628fr);
+
+    column-gap: 10.391%;   /* 133 of 1280 */
+  }
+
+  /* Left column: body on top, People pushed to the bottom (the column stretches to the image
+     column's height, so People ends with the last image); the padding keeps the Figma minimum
+     gap when the body is the longer side. */
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .imagesCell {
+    order: 0;
+
+    grid-column: 2;
+    grid-row: 1;
+
+    margin-bottom: 0;
+  }
+
+  .peopleCell,
+  .bodyCell + .peopleCell {
+    margin-top: auto;
+  }
+
+  .bodyCell + .peopleCell {
+    padding-top: 160px;
+  }
+
+  .images {
+    gap: 16px;
+  }
+
+  .body {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  /* One blank line between paragraphs (Figma 1440/1920). */
+  .paragraph + .paragraph {
+    margin-top: 30px;
+  }
+
+}
+
+/* 1920 --------------------------------------------------------------------- */
+@media (min-width: 1920px) {
+  .main {
+    padding: 100px var(--page-padding-large) 370px;
+  }
+
+  .detail {
+    gap: 100px;
+  }
+
+  .header {
+    max-width: 66.105%;   /* 1137 of 1720: two page-grid columns */
+
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 76px;
+    line-height: 80px;
+  }
+
+  .meta {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .typeIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .square {
+    width: 4px;   /* Figma 1920 draws a text glyph (▪️); scaled from the 3px square */
+    height: 4px;
+  }
+
+  .content {
+    grid-template-columns: minmax(0, 553fr) minmax(0, 991fr);
+
+    column-gap: 10.233%;   /* 176 of 1720 */
+  }
+
+  .bodyCell + .peopleCell {
+    padding-top: 300px;
+  }
+
+  .images {
+    gap: 20px;
+  }
+
+  .body {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .paragraph + .paragraph {
+    margin-top: 36px;
+  }
+
+}

@@ -1,0 +1,153 @@
+/*
+ * Figma Why A2F: 365 0:1165 / 768 0:1561 / 1440 0:2148 / 1920 0:151.
+ * 1440+: label in grid column 1, text across columns 2–3.
+ */
+.section {
+  display: flex;
+  flex-direction: column;
+
+  gap: 60px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.heading {
+  margin: 0;
+}
+
+.label {
+  display: block;
+
+  width: 80px;
+  height: auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.statement {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.lead {
+  color: var(--color-green);
+}
+
+.description {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .section {
+    gap: 80px;
+  }
+
+  .intro {
+    gap: 24px;
+  }
+
+  .label {
+    width: 105px;
+  }
+
+  .text {
+    gap: 14px;
+  }
+
+  .statement {
+    font-size: 26px;
+    line-height: 31px;
+    letter-spacing: -0.02em;   /* Figma 768: -0.52px */
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    gap: 100px;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+  }
+
+  .label {
+    width: 160px;
+  }
+
+  .textCell {
+    grid-column: 2 / 4;
+  }
+
+  .text {
+    gap: 16px;
+  }
+
+  .statement {
+    font-size: 40px;
+    line-height: 46px;
+    letter-spacing: var(--tracking-en);
+  }
+
+  .description {
+    font-size: 17px;
+    line-height: 25px;
+    letter-spacing: 0;
+  }
+}
+
+@media (min-width: 1920px) {
+  .intro {
+    gap: 30px;
+  }
+
+  .label {
+    width: 175px;
+  }
+
+  .text {
+    gap: 20px;
+  }
+
+  .statement {
+    font-size: 50px;
+    line-height: 56px;
+  }
+
+  .description {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}

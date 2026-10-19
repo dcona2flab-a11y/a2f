@@ -1,0 +1,146 @@
+/*
+ * Figma Team intro: 365 0:1321 / 768 0:1807–1809 / 1440 0:2508–2511 / 1920 0:986–990.
+ * 365 / 768: title → text 30, the photo right-aligned below the text (365: 20 below; the
+ * empty 100×74 box beside it in 365 is layout only). 1440 / 1920: text left, photo right.
+ */
+.intro {
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+/* 365 sets the intro in Pretendard (Figma 0:1324); 768 and up in Hanken Grotesk Medium. */
+.text {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: var(--tracking-en);
+  white-space: pre-line;
+
+  color: var(--color-black);
+}
+
+.image {
+  position: relative;
+
+  align-self: flex-end;
+  flex-shrink: 0;
+
+  width: 99px;
+  height: 74px;
+
+  overflow: hidden;
+}
+
+.empty {
+  background: var(--color-tag-bg);
+}
+
+.photo {
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 50px;
+    line-height: 50px;
+  }
+
+  .body {
+    gap: 0;
+  }
+
+  .text {
+    font-family: var(--font-en);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  .image {
+    width: 223px;
+    height: 168px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .intro {
+    gap: 120px;
+  }
+
+  .title {
+    font-size: 74px;
+    line-height: 68px;
+  }
+
+  .body {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+  }
+
+  .text {
+    width: 519px;
+
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .image {
+    align-self: flex-start;
+
+    width: 411px;
+    height: 308px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .intro {
+    gap: 150px;
+  }
+
+  .title {
+    font-size: 96px;
+    line-height: 84px;
+  }
+
+  .body {
+    gap: 30px;
+  }
+
+  .text {
+    width: 553px;
+
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .image {
+    width: 553px;
+    height: 415px;
+  }
+}

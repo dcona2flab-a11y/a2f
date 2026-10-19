@@ -1,0 +1,100 @@
+/*
+ * Figma GNB: 365 (h100) / 768 (h130) / 1440 (h120) / 1920 (h125).
+ * Sticky; in admin routes it sits right below the AdminBar (--sticky-offset).
+ */
+.header {
+  position: sticky;
+  top: var(--sticky-offset);
+  z-index: var(--z-header);
+
+  height: var(--header-height);
+
+  background: linear-gradient(to bottom, var(--color-white), rgb(255 255 255 / 0.9));
+}
+
+/* 365/768: logo and hamburger are centered 5px below the bar's middle. */
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+  box-sizing: border-box;
+
+  padding: 10px var(--page-padding-mobile) 0;
+}
+
+.home {
+  display: inline-flex;
+
+  color: inherit;
+}
+
+.home:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+/* `.home` prefix: wins over Logo.module.css defaults regardless of load order. */
+.home .mark {
+  height: 40px;   /* 365: 70×40 */
+}
+
+.home .lockup {
+  display: none;
+}
+
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    padding-inline: var(--page-padding-tablet);
+  }
+
+  .home .mark {
+    height: 50px;   /* 768: 87×50 */
+  }
+}
+
+/* Desktop: same three-column grid as the page content; the nav fills the third column
+   (Figma: 1440 x 949–1360, 1920 x 1267–1820). */
+@media (min-width: 1440px) {
+  .inner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+
+    column-gap: 24px;
+    padding: 0 var(--page-padding-desktop);
+  }
+
+  .home .mark,
+  .mobileMenu {
+    display: none;
+  }
+
+  .home .lockup {
+    display: block;
+
+    height: 55px;   /* 205×55 */
+  }
+
+  .desktopNav {
+    display: block;
+
+    grid-column: 3;
+  }
+}
+
+@media (min-width: 1920px) {
+  .inner {
+    column-gap: 30px;
+    padding-inline: var(--page-padding-large);
+  }
+
+  .home .lockup {
+    height: 66px;
+  }
+}

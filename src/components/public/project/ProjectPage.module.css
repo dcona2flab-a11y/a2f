@@ -1,0 +1,28 @@
+/* Figma project list frames: header → title 30 / 30 / 100 / 100, last row → footer 84 / 104 /
+   453 / 432 (1920: grid → scroll-to-top 111, scroll-to-top → footer 100). */
+.main {
+  margin: 0;
+  padding: 30px var(--page-padding-mobile) 84px;
+}
+
+.scrollToTop {
+  margin-top: 111px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 30px var(--page-padding-tablet) 104px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    padding: 100px var(--page-padding-desktop) 453px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .main {
+    padding: 100px var(--page-padding-large) 100px;
+  }
+}

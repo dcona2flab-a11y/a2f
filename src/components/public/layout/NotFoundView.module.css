@@ -1,0 +1,53 @@
+/* Minimal 404 (no Figma design): A2F type and colours only. */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-height: 50vh;
+
+  gap: var(--space-20);
+  margin: 0;
+  padding: var(--space-60) var(--page-padding-mobile) var(--space-100);
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.4;
+
+  color: var(--color-black);
+}
+
+.link {
+  font-family: var(--font-ko);
+  font-size: 16px;
+
+  color: var(--color-green);
+}
+
+.link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding-inline: var(--page-padding-tablet);
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    padding: var(--space-100) var(--page-padding-desktop) 368px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .main {
+    padding-inline: var(--page-padding-large);
+  }
+}

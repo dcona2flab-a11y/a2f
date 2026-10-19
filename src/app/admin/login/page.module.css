@@ -1,0 +1,15 @@
+.page {
+  display: grid;
+  place-items: center;
+
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: var(--space-24);
+
+  font-family: var(--font-base);
+
+  color: var(--color-text);
+  background: var(--color-tag-bg);
+}

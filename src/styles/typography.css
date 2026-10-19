@@ -1,0 +1,70 @@
+/*
+ * A2F Design System — text styles from the Figma text styles (defined on the 1920 frames).
+ * Opt-in classes only; no element selectors, so pages that do not use them are unaffected.
+ * Sizes are the 1920 values — smaller breakpoints read their own values from Figma per node.
+ */
+
+.text-en-h5 {   /* en) H5 */
+  font-family: var(--font-en);
+  font-size: 76px;
+  font-weight: 500;
+  line-height: 80px;
+  letter-spacing: var(--tracking-en);
+}
+
+.text-en-h4 {   /* en) H4 */
+  font-family: var(--font-en);
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 56px;
+  letter-spacing: var(--tracking-en);
+}
+
+.text-en-h2 {   /* en) H2 */
+  font-family: var(--font-en);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: var(--tracking-en);
+}
+
+.text-en-h1 {   /* en) H1 */
+  font-family: var(--font-en);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: var(--tracking-en);
+}
+
+.text-en-b1 {   /* en) B1 */
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: var(--tracking-en);
+}
+
+.text-kr-b1 {   /* kr) B1 */
+  font-family: var(--font-ko);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0;
+}
+
+.text-kr-b1-short {   /* kr) B1(short) */
+  font-family: var(--font-ko);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.text-gnb {   /* GNB */
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

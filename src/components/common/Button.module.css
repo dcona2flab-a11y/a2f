@@ -1,0 +1,76 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-8);
+
+  font-family: var(--font-base);
+  font-weight: 500;
+  letter-spacing: var(--tracking-en);
+
+  border: 1px solid transparent;
+  border-radius: 0;
+
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.md {
+  min-height: 44px;
+  padding: var(--space-8) var(--space-20);
+
+  font-size: 16px;
+}
+
+.sm {
+  min-height: 36px;
+  padding: var(--space-4) var(--space-12);
+
+  font-size: 14px;
+}
+
+.primary {
+  color: var(--color-white);
+  background: var(--color-green);
+}
+
+.primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-green) 85%, black);
+}
+
+.secondary {
+  color: var(--color-black);
+  background: var(--color-white);
+
+  border-color: var(--color-line);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-tag-bg);
+  border-color: var(--color-text-secondary);
+}
+
+.danger {
+  color: var(--color-danger);
+  background: var(--color-white);
+
+  border-color: currentColor;
+}
+
+.danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-danger) 8%, white);
+}
+
+.button:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

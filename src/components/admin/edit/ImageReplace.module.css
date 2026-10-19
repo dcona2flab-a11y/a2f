@@ -1,0 +1,77 @@
+.region {
+  position: relative;
+}
+
+/* Fills a positioned slot; the image inside is absolutely positioned too. */
+.fill {
+  position: absolute;
+  inset: 0;
+}
+
+.button {
+  position: absolute;
+  right: var(--space-12);
+  bottom: var(--space-12);
+
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 36px;
+
+  padding: var(--space-4) var(--space-12);
+
+  font-family: var(--font-ko);
+  font-size: 13px;
+  font-weight: 600;
+
+  color: var(--color-white);
+  background: var(--color-green);
+
+  cursor: pointer;
+}
+
+.input:focus-visible + .button,
+.button:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}
+
+.busy {
+  cursor: progress;
+  opacity: 0.8;
+}
+
+/* Visually hidden but focusable/operable through its label. */
+.input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+
+  clip-path: inset(50%);
+}
+
+.error {
+  margin: var(--space-8) 0 0;
+
+  white-space: pre-line;
+
+  font-family: var(--font-ko);
+  font-size: 13px;
+
+  color: var(--color-danger);
+}
+
+.fill .error {
+  position: absolute;
+  right: var(--space-12);
+  bottom: calc(var(--space-12) + 44px);
+  left: var(--space-12);
+
+  margin: 0;
+  padding: var(--space-4) var(--space-8);
+
+  background: var(--color-white);
+}

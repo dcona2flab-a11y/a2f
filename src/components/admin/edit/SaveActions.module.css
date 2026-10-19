@@ -1,0 +1,15 @@
+.actions {
+  display: flex;
+
+  gap: var(--space-8);
+}
+
+.error {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 13px;
+  white-space: pre-line;
+
+  color: var(--color-danger);
+}

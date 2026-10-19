@@ -1,0 +1,33 @@
+/*
+ * Figma Home content frames: 365 0:1155 / 768 0:1550 / 1440 0:2135 / 1920 0:138.
+ * Top = header → headline, bottom = last section → footer, gap = between sections.
+ */
+.main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 100px;
+  margin: 0;
+  padding: 60px var(--page-padding-mobile) 96px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    gap: 140px;
+    padding: 100px var(--page-padding-tablet) 350px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    gap: 180px;
+    padding: 140px var(--page-padding-desktop) 366px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .main {
+    gap: 300px;
+    padding: 220px var(--page-padding-large) 352px;
+  }
+}

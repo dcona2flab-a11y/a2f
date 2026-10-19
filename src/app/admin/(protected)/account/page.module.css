@@ -1,0 +1,20 @@
+.page {
+  display: flex;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: var(--space-60) var(--page-padding-mobile);
+
+  font-family: var(--font-base);
+
+  color: var(--color-text);
+  background: var(--color-tag-bg);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-block: var(--space-80);
+  }
+}

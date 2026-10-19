@@ -1,0 +1,8 @@
+/* Default display height: the 1440 header/footer size. Override height per placement; width follows the ratio. */
+.lockup,
+.mark {
+  display: block;
+
+  width: auto;
+  height: 55px;
+}

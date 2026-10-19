@@ -1,0 +1,106 @@
+/*
+ * Figma footers: 365 "Puter(Mobile)" h110 / 768 h120 / 1440 h130 / 1920 h148.
+ * Green A2F mark + green text, background #FAFAFA (top) → white (bottom).
+ */
+.footer {
+  background: linear-gradient(to top, var(--color-white), var(--color-tag-bg));
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+
+  height: 110px;
+  box-sizing: border-box;
+
+  gap: 20px;
+  padding-inline: var(--page-padding-mobile);
+}
+
+/* `.inner` prefix: wins over Logo.module.css defaults regardless of load order. */
+.inner .mark {
+  flex-shrink: 0;
+
+  height: 40px;
+}
+
+.text {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-green);
+}
+
+/* 365: one phrase per line. */
+.line {
+  display: block;
+}
+
+/* 768 / 1440: first phrase on its own line, the rest on the second line. */
+@media (min-width: 768px) {
+  .inner {
+    height: 120px;
+
+    gap: 30px;
+    padding-inline: var(--page-padding-tablet);
+  }
+
+  .inner .mark {
+    height: 50px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .line:not(:first-child) {
+    display: inline;
+  }
+}
+
+@media (min-width: 1440px) {
+  .inner {
+    height: 130px;
+
+    gap: 20px;
+    padding-inline: var(--page-padding-desktop);
+  }
+
+  .inner .mark {
+    height: 55px;
+  }
+
+  .text {
+    font-size: 17px;
+    line-height: 22px;
+  }
+}
+
+/* 1920: one line. */
+@media (min-width: 1920px) {
+  .inner {
+    height: 148px;
+
+    gap: 31px;
+    padding-inline: var(--page-padding-large);
+  }
+
+  .inner .mark {
+    height: 66px;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .line {
+    display: inline;
+  }
+}

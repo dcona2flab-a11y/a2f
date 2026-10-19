@@ -1,0 +1,205 @@
+/*
+ * Figma filter (closed 1440 0:2267, open 1440 0:2325 / 1920 0:326 / 768 0:1721).
+ * Closed: [type icon] label ⌄. Open: the chevron flips, and a list drops over the content:
+ * white → 40% white → #F3F3F3 with backdrop blur and a 2px green bottom border; all options green.
+ * The open frame starts 8px left of the button (text stays in place: list padding-left 10px).
+ */
+.dropdown {
+  position: relative;
+
+  display: inline-flex;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 12px;
+  margin: 0;
+  padding: 0 2px;
+
+  font-family: var(--font-en);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+  background: var(--color-white);
+
+  border: 0;
+  border-radius: 0;
+
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.current {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.icon {
+  display: block;
+
+  width: 16px;
+  height: 16px;
+}
+
+.chevron {
+  display: block;
+
+  width: 15px;
+  height: 9px;
+
+  background: url("../../../assets/icons/chevron-down.svg") center / contain no-repeat;
+}
+
+.open .chevron {
+  transform: scaleY(-1);
+}
+
+.list {
+  position: absolute;
+  top: calc(100% + 16px);
+  right: 0;
+  left: -8px;
+  z-index: 10;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background: linear-gradient(to bottom, var(--color-white), rgb(255 255 255 / 0.4) 50%, #f3f3f3);
+
+  border-bottom: 2px solid var(--color-green);
+
+  backdrop-filter: blur(10px);
+}
+
+.list:focus-visible {
+  outline: none;
+}
+
+.option {
+  padding: 5px 0 5px 10px;
+
+  font-family: var(--font-en);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: var(--tracking-en);
+  white-space: nowrap;
+
+  color: var(--color-green);
+
+  cursor: pointer;
+}
+
+/* Keyboard position inside the open list (not a Figma state: focus indication only). */
+.list:focus-visible .active {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
+}
+
+@media (min-width: 1440px) {
+  .button,
+  .option {
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  .icon {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .button {
+    gap: 20px;
+    padding: 8px 2px;
+
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .current {
+    gap: 10px;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .chevron {
+    width: 18px;
+    height: 11px;
+  }
+
+  .list {
+    top: calc(100% + 10px);
+  }
+
+  .option {
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
+
+/* Project year filter: 768 16/22, 1440 20/30, 1920 24/36 (no vertical padding), gap 10 / 20. */
+.project .button {
+  gap: 10px;
+  padding: 0 4px;
+
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.project .option {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.project .list {
+  top: calc(100% + 10px);
+}
+
+@media (min-width: 1440px) {
+  .project .button,
+  .project .option {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .project .chevron {
+    width: 16px;
+    height: 10px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .project .button {
+    gap: 20px;
+    padding: 0 4px;
+  }
+
+  .project .button,
+  .project .option {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .project .chevron {
+    width: 18px;
+    height: 11px;
+  }
+}

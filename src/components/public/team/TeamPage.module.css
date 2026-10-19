@@ -1,0 +1,53 @@
+/*
+ * Figma Team: 365 0:1320 / 768 0:1806 / 1440 0:2507 / 1920 0:985.
+ * Header → title 30 / 30 / 100 / 100; intro → professor 50 / 40 / 120 / 150;
+ * professor → Student → Alumni 100 / 80 / 120 / 300; last item → footer 88 / 202 / 352 / 335.
+ */
+.main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 100px;
+  margin: 0;
+  padding: 30px var(--page-padding-mobile) 88px;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+
+  gap: 50px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    gap: 80px;
+    padding: 30px var(--page-padding-tablet) 202px;
+  }
+
+  .top {
+    gap: 40px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    gap: 120px;
+    padding: 100px var(--page-padding-desktop) 352px;
+  }
+
+  .top {
+    gap: 120px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .main {
+    gap: 300px;
+    padding: 100px var(--page-padding-large) 335px;
+  }
+
+  .top {
+    gap: 150px;
+  }
+}

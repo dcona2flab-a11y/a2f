@@ -1,0 +1,77 @@
+/*
+ * A2F Design System — tokens shared by the public site and the admin.
+ * Values come from the Figma design unless marked otherwise.
+ * Only custom properties live here; nothing is styled by this file on its own.
+ */
+:root {
+  /* Color */
+  --color-green: #008c2a;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-text: #555;            /* body text */
+  --color-text-secondary: #888;  /* metadata, secondary text */
+  --color-tag-bg: #fafafa;       /* tag chips, footer background */
+  --color-line: #e6e6e6;         /* not in Figma: dividers and form borders (admin/forms) */
+  --color-danger: #c62828;       /* not in Figma: form errors */
+
+  /* Font families (Hanken Grotesk is loaded by next/font in app/layout.tsx as --font-hanken) */
+  --font-en: var(--font-hanken), "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-ko: "Pretendard Variable", Pretendard, system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  /* Mixed EN/KO text: Latin glyphs from Hanken Grotesk, Hangul falls through to Pretendard */
+  --font-base: var(--font-en);
+
+  /* English letter spacing (Figma default; a node-specific value wins) */
+  --tracking-en: -0.04em;
+
+  /* Spacing scale — values that recur in Figma */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-30: 30px;
+  --space-40: 40px;
+  --space-60: 60px;
+  --space-80: 80px;
+  --space-100: 100px;
+
+  /* Page side padding per design width */
+  --page-padding-mobile: 20px;   /* 365 */
+  --page-padding-tablet: 30px;   /* 768 */
+  --page-padding-desktop: 80px;  /* 1440 */
+  --page-padding-large: 100px;   /* 1920 */
+
+  /* Interaction */
+  --focus-ring: 2px solid var(--color-green);
+  --transition-fast: 150ms ease;
+  --transition-panel: 250ms ease-out;  /* hamburger panel slide/fade */
+
+  /* Sticky chrome. --sticky-offset is raised by the AdminBar in admin routes. */
+  --header-height: 100px;        /* 365 */
+  --admin-bar-height: 48px;      /* not in Figma: admin-only strip */
+  --sticky-offset: 0px;
+
+  /* Stacking order */
+  --z-header: 50;
+  --z-admin-bar: 60;
+  --z-menu: 100;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 130px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --header-height: 120px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --header-height: 125px;
+  }
+}

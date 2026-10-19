@@ -1,0 +1,38 @@
+{
+  "name": "a2f",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "blob:test": "node --env-file-if-exists=.env.local scripts/blob-connection-test.mjs",
+    "blob:export": "node --env-file=.env.source scripts/blob-migrate.mjs export ./migration-data",
+    "blob:import": "node --env-file=.env.target scripts/blob-migrate.mjs import ./migration-data",
+    "admin:bootstrap": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/admin-bootstrap.ts",
+    "images:cleanup": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/images-cleanup.ts"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.0",
+    "next": "^16.3.8",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.5"
+  },
+  "engines": {
+    "node": ">=22.9.0"
+  },
+  "packageManager": "npm@10.9.4",
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.8",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}

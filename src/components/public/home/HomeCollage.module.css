@@ -1,0 +1,293 @@
+/*
+ * Figma main collage: 365 0:1157 (325×350) / 768 0:1552 (708×725) / 1440 0:2137 (1280×626)
+ * / 1920 0:140 (1720×913). Slot positions are the Figma coordinates in % of the collage.
+ * black0 and the second paragraph exist from 1440 up; the blue block from 768 up.
+ */
+.collage {
+  position: relative;
+
+  aspect-ratio: 325 / 350;
+}
+
+.block,
+.text {
+  position: absolute;
+}
+
+.gradient {
+  background: linear-gradient(to bottom, var(--color-green), var(--color-white));
+}
+
+.blue {
+  display: none;
+
+  background: #c8d8f2;   /* Figma fill over Rectangle 161124362 */
+}
+
+/* Figma: photo under an opaque black fill (Rectangle 161124336 / 161124331) = black block.
+   black1 paints it on ::before so ani3 can move the fill inside its clipped slot. */
+.black0,
+.black1::before {
+  background: var(--color-black);
+}
+
+.black1::before {
+  position: absolute;
+  inset: 0;
+
+  content: "";
+}
+
+.black0,
+.intro1 {
+  display: none;
+}
+
+.paragraph {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+/* 365 */
+.gradient { top: 0%; left: 39.692%; width: 29.846%; height: 36.857%; }
+.black1 { top: 88%; left: 0%; width: 17.231%; height: 12%; }
+.photo0 { top: 18.571%; left: 52%; width: 48%; height: 28.286%; }
+.photo1 { top: 57.429%; left: 12.923%; width: 30.769%; height: 22%; }
+.photo2 { top: 8.571%; left: 0%; width: 30.462%; height: 40.286%; }
+.intro0 { top: 55.429%; left: 52%; width: 48%; }
+
+@media (min-width: 768px) {
+  .collage {
+    aspect-ratio: 708 / 725;
+  }
+
+  .blue {
+    display: block;
+  }
+
+  .paragraph {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .gradient { top: 0%; left: 37.853%; width: 31.497%; height: 40.966%; }
+  .blue { top: 80.276%; left: 39.124%; width: 10.169%; height: 3.31%; }
+  .black1 { top: 87.448%; left: 0%; width: 17.09%; height: 12.552%; }
+  .photo0 { top: 19.586%; left: 51.412%; width: 48.588%; height: 30.069%; }
+  .photo1 { top: 58.345%; left: 12.853%; width: 31.356%; height: 23.586%; }
+  .photo2 { top: 8.966%; left: 0%; width: 31.497%; height: 43.862%; }
+  .intro0 { top: 55.172%; left: 51.412%; width: 48.588%; }
+}
+
+@media (min-width: 1440px) {
+  .collage {
+    aspect-ratio: 1280 / 626;
+  }
+
+  .black0,
+  .intro1 {
+    display: block;
+  }
+
+  .paragraph {
+    font-size: 17px;
+    line-height: 21px;
+  }
+
+  .gradient { top: 10.383%; left: 25.469%; width: 16.953%; height: 29.073%; }
+  .blue { top: 34.665%; left: 63.75%; width: 8.281%; height: 4.792%; }
+  .black0 { top: 0%; left: 77.969%; width: 22.031%; height: 39.457%; }
+  .black1 { top: 47.444%; left: 8.516%; width: 15.078%; height: 32.428%; }
+  .photo0 { top: 21.406%; left: 0%; width: 19.688%; height: 18.051%; }
+  .photo1 { top: 37.061%; left: 33.984%; width: 23.594%; height: 30.831%; }
+  .photo2 { top: 37.061%; left: 67.891%; width: 21.641%; height: 62.939%; }
+  .intro0 { top: 0%; left: 49.062%; width: 19.688%; }
+  .intro1 { top: 78.914%; left: 28.75%; width: 19.688%; }
+}
+
+@media (min-width: 1920px) {
+  .collage {
+    aspect-ratio: 1720 / 913;
+  }
+
+  .paragraph {
+    font-size: 22px;
+    line-height: 34px;
+  }
+
+  .gradient { top: 10.077%; left: 25.407%; width: 16.977%; height: 27.711%; }
+  .blue { top: 33.406%; left: 61.86%; width: 8.488%; height: 4.381%; }
+  .black0 { top: 0%; left: 76.279%; width: 23.721%; height: 37.788%; }
+  .black1 { top: 45.455%; left: 6.744%; width: 14.942%; height: 31.435%; }
+  .photo0 { top: 20.701%; left: 0%; width: 21.686%; height: 17.087%; }
+  .photo1 { top: 35.597%; left: 33.895%; width: 23.721%; height: 28.587%; }
+  .photo2 { top: 35.597%; left: 67.849%; width: 21.686%; height: 58.05%; }
+  .intro0 { top: 0%; left: 50.872%; width: 21.977%; }
+  .intro1 { top: 81.38%; left: 25.407%; width: 23.721%; }
+}
+
+/*
+ * ani3 — Home scroll (a2f_ani3.mp4 / Figma "A2F - Home (Scroll)" 0:2642, speeds and masks from
+ * references/홈화면 애니메이션 설명.png). Scroll 0 shows the layout above exactly.
+ * Parallax: the page scrolls at 1.0 and an element with --speed s rises at s × the page speed,
+ * so it falls behind by (1 − s) px per px scrolled (0.8 / 0.6 / 0.4: the slowest rises most
+ * slowly). Over the last 15% of --range that lag rate eases to 0 (quadratic ease-out, no jump)
+ * so every element ends at the page speed; the lag reached is then kept.
+ * intro0 (1440+) has its own shorter --range: it eases back to the page speed before it can come
+ * closer than ~25px to the blocks below it.
+ * Mask (photo2, black1, intro1): the slot stays in place and is clipped at a fixed line
+ * --mask-gap below its own bottom; its content (photo, paragraph, black1::before) falls behind
+ * inside it, so the part that passes the line is eaten from the bottom by the white background.
+ * Each line is static, so the easing never affects it. The other elements are never clipped.
+ * Reduced motion and browsers without scroll-driven animations: the static layout, no mask.
+ * A wrapping page can switch the motion off with `--scroll-motion-timeline: none`; the admin Home
+ * does this. The style query below then removes the motion and the mask altogether (with a
+ * `none` timeline Chrome would still apply an animation's end state).
+ */
+@keyframes collage-lag {
+  from {
+    translate: 0 0;
+  }
+
+  85% {
+    animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1);
+    translate: 0 calc((1 - var(--speed)) * var(--range) * 0.85);
+  }
+
+  to {
+    translate: 0 calc((1 - var(--speed)) * var(--range) * 0.925);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .collage {
+      --range: 200px;
+    }
+
+    .photo0,
+    .gradient,
+    .blue,
+    .black0 {
+      --speed: 0.8;
+    }
+
+    .photo1,
+    .intro1 {
+      --speed: 0.6;
+    }
+
+    .photo2,
+    .black1,
+    .intro0 {
+      --speed: 0.4;
+    }
+
+    .block,
+    .text,
+    .photo2 > *,
+    .intro1 > *,
+    .black1::before {
+      animation: collage-lag linear both;
+      animation-timeline: var(--scroll-motion-timeline, scroll(root));
+      animation-range: 0 var(--range);
+    }
+
+    .photo2,
+    .black1,
+    .intro1 {
+      animation: none;
+      clip-path: inset(-100vh -100vw calc(-1 * var(--mask-gap)) -100vw);
+    }
+
+    .photo2 {
+      --mask-gap: 259px;
+    }
+
+    .black1 {
+      --mask-gap: 80px;
+    }
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .collage {
+      --range: 350px;
+    }
+
+    .photo2 {
+      --mask-gap: 452px;
+    }
+
+    .black1 {
+      --mask-gap: 110px;
+    }
+  }
+}
+
+@media (min-width: 1440px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .collage {
+      --range: 500px;
+    }
+
+    .intro0 {
+      --range: 175px;
+    }
+
+    .photo2 {
+      --mask-gap: 135px;
+    }
+
+    .black1 {
+      --mask-gap: 210px;
+    }
+
+    .intro1 {
+      --mask-gap: 130px;
+    }
+  }
+}
+
+@media (min-width: 1920px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .collage {
+      --range: 750px;
+    }
+
+    .intro0 {
+      --range: 300px;
+    }
+
+    .photo2 {
+      --mask-gap: 247px;
+    }
+
+    .black1 {
+      --mask-gap: 337px;
+    }
+
+    .intro1 {
+      --mask-gap: 195px;
+    }
+  }
+}
+
+@container style(--scroll-motion-timeline: none) {
+  .block,
+  .text,
+  .photo2 > *,
+  .intro1 > *,
+  .black1::before {
+    animation: none;
+    clip-path: none;
+  }
+}

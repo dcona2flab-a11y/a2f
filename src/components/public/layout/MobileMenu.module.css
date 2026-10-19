@@ -1,0 +1,224 @@
+/*
+ * Figma "365 Home_Hambuger" / "768 Home_Hambuger".
+ * Panel from the right: 365 x=76 w=289, 768 x=158 w=610 (≈79.2% / 79.4% of the width).
+ */
+
+/* Hamburger: 365 = two 1px lines, 42 wide, 10 apart; 768 = 1.4px, 60 wide, 16 apart. */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 44px;
+  min-height: 44px;
+
+  padding: 0;
+
+  background: none;
+
+  border: 0;
+
+  cursor: pointer;
+}
+
+.toggle:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.toggleLines {
+  display: block;
+
+  width: 42px;
+  height: 11px;
+  box-sizing: border-box;
+
+  border-top: 1px solid var(--color-black);
+  border-bottom: 1px solid var(--color-black);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+
+  visibility: hidden;
+  pointer-events: none;
+
+  /* stay visible until the 250ms closing transition has finished */
+  transition: visibility 0s linear 250ms;
+}
+
+.open {
+  visibility: visible;
+  pointer-events: auto;
+
+  transition: visibility 0s;
+}
+
+/* Figma shows no dimming: a transparent click-catcher that fades with the panel. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+
+  transition: opacity var(--transition-panel);
+}
+
+.open .backdrop {
+  opacity: 1;
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 79.2%;
+
+  background: linear-gradient(-90deg, rgb(255 255 255 / 0.7) 0%, #fafafa 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -4px 70px 0 rgb(0 0 0 / 0.2);
+
+  transform: translateX(100%);
+  opacity: 0;
+
+  transition:
+    transform var(--transition-panel),
+    opacity var(--transition-panel);
+}
+
+.open .panel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Close (X): 365 30×30 at panel right 26 / top 40; 768 44×44 at right 38 / top 49. */
+.close {
+  position: absolute;
+  top: 40px;
+  right: 26px;
+
+  display: inline-flex;
+
+  padding: 0;
+
+  background: none;
+
+  border: 0;
+
+  cursor: pointer;
+}
+
+.close:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.closeIcon365 {
+  display: block;
+
+  width: 30px;
+  height: 30px;
+}
+
+.closeIcon768 {
+  display: none;
+}
+
+/* Menu: 365 at panel x 57 / top 253, 20px, gap 30; 768 at x 115 / top 393, 26px, gap 40. */
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 30px;
+  margin: 0;
+  padding: 253px 0 0 57px;
+
+  list-style: none;
+}
+
+.link {
+  font-family: var(--font-en);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.active {
+  font-weight: 600;
+
+  color: var(--color-green);
+}
+
+.disabled {
+  color: var(--color-text-secondary);
+
+  cursor: not-allowed;
+}
+
+/* Applied to <html> while the panel is open. */
+.scrollLocked {
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .toggleLines {
+    width: 60px;
+    height: 17.4px;
+
+    border-top-width: 1.4px;
+    border-bottom-width: 1.4px;
+  }
+
+  .panel {
+    width: 79.4%;
+  }
+
+  .close {
+    top: 49px;
+    right: 38px;
+  }
+
+  .closeIcon365 {
+    display: none;
+  }
+
+  .closeIcon768 {
+    display: block;
+
+    width: 44px;
+    height: 44px;
+  }
+
+  .list {
+    gap: 40px;
+    padding: 393px 0 0 115px;
+  }
+
+  .link {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .open,
+  .backdrop,
+  .panel {
+    transition: none;
+  }
+}

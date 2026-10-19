@@ -1,0 +1,184 @@
+/*
+ * Figma Student / Alumni item: 365 0:1362 / 768 0:1844 / 1440 0:2544 / 1920 0:1024.
+ * Photo 99×132 / 101×135 / 110×147 / 146×194 (cover), text bottom-aligned beside it.
+ */
+.member {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 14px;
+}
+
+.photo {
+  position: relative;
+
+  flex-shrink: 0;
+
+  width: 99px;
+  height: 132px;
+
+  overflow: hidden;
+}
+
+/* Same gray gradient placeholder as Award / Project people without a photo. */
+.placeholder {
+  background: linear-gradient(to bottom, var(--color-text-secondary), rgb(250 250 250 / 0));
+}
+
+.photoImage {
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 6px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: var(--tracking-en);
+
+  color: var(--color-black);
+}
+
+.email {
+  font-family: var(--font-en);
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: var(--tracking-en);
+  overflow-wrap: anywhere;
+
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.email:hover {
+  text-decoration: underline;
+}
+
+.email:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.field {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+  line-height: 21px;
+  word-break: keep-all;
+
+  color: var(--color-black);
+}
+
+@media (min-width: 768px) {
+  .member {
+    gap: 20px;
+  }
+
+  .photo {
+    width: 101px;
+    height: 135px;
+  }
+
+  .info {
+    gap: 8px;
+  }
+
+  .identity {
+    gap: 1px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .email {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .field {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .member {
+    gap: 14px;
+  }
+
+  .photo {
+    width: 110px;
+    height: 147px;
+  }
+
+  .info {
+    gap: 10px;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+
+  .email {
+    font-size: 16px;
+    line-height: normal;
+  }
+
+  .field {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .member {
+    gap: 30px;
+  }
+
+  .photo {
+    width: 146px;
+    height: 194px;
+  }
+
+  .info {
+    gap: 14px;
+  }
+
+  .identity {
+    gap: 0;
+  }
+
+  .name {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .email {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .field {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}

@@ -1,0 +1,111 @@
+/*
+ * Figma Award & Activity: 365 0:1262 / 768 0:1676 / 1440 0:2264 / 1920 0:267.
+ * 365: one column, no filter. 768: two cards. 1440/1920: three cards on the page grid.
+ */
+.section {
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-16);
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: var(--tracking-en);
+  white-space: nowrap;
+
+  color: var(--color-black);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-16);
+}
+
+.filter {
+  display: none;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+
+  gap: 36px;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.item {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .section {
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 37px;
+  }
+
+  .filter {
+    display: inline-flex;
+  }
+
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    gap: 60px;
+  }
+
+  .title {
+    font-size: 60px;
+    line-height: 62px;
+  }
+
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .section {
+    gap: 80px;
+  }
+
+  .title {
+    font-size: 76px;
+    line-height: 80px;
+  }
+
+  .list {
+    gap: 30px;
+  }
+}

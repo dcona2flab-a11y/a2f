@@ -1,0 +1,55 @@
+/* Admin-only states of the award detail page (no Figma design). */
+.empty {
+  margin: 0;
+  padding: var(--space-24) 0;
+
+  font-family: var(--font-ko);
+  font-size: 15px;
+
+  color: var(--color-text-secondary);
+}
+
+.missing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: var(--space-16);
+  margin: 0;
+  padding: var(--space-60) var(--page-padding-mobile) var(--space-100);
+}
+
+.message {
+  margin: 0;
+
+  font-family: var(--font-ko);
+  font-size: 20px;
+  font-weight: 500;
+
+  color: var(--color-black);
+}
+
+.link {
+  font-family: var(--font-ko);
+  font-size: 15px;
+
+  color: var(--color-green);
+}
+
+@media (min-width: 768px) {
+  .missing {
+    padding-inline: var(--page-padding-tablet);
+  }
+}
+
+@media (min-width: 1440px) {
+  .missing {
+    padding-inline: var(--page-padding-desktop);
+  }
+}
+
+@media (min-width: 1920px) {
+  .missing {
+    padding-inline: var(--page-padding-large);
+  }
+}
