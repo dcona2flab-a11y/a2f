@@ -3,6 +3,9 @@
  * Closed: [type icon] label ⌄. Open: the chevron flips, and a list drops over the content:
  * white → 40% white → #F3F3F3 with backdrop blur and a 2px green bottom border; all options green.
  * The open frame starts 8px left of the button (text stays in place: list padding-left 10px).
+ * Motion (designer feedback 2026-11-04, no Figma values): the chevron turns, the list unfolds
+ * from the top edge and its options drop in one after another (--i = option index, the stagger
+ * stops after 8); closing folds the list quickly. Reduced motion: no transitions.
  */
 .dropdown {
   position: relative;
@@ -59,10 +62,12 @@
   height: 9px;
 
   background: url("../../../assets/icons/chevron-down.svg") center / contain no-repeat;
+
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .open .chevron {
-  transform: scaleY(-1);
+  transform: rotate(180deg);
 }
 
 .list {
@@ -82,6 +87,23 @@
   border-bottom: 2px solid var(--color-green);
 
   backdrop-filter: blur(10px);
+
+  visibility: hidden;
+  opacity: 0;
+  clip-path: inset(0 -100vw 100% -100vw);   /* vertical only: long options may overflow sideways */
+  transition:
+    clip-path 160ms ease-in,
+    opacity 160ms ease-in,
+    visibility 0s linear 160ms;
+}
+
+.open .list {
+  visibility: visible;
+  opacity: 1;
+  clip-path: inset(0 -100vw);
+  transition:
+    clip-path 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease-out;
 }
 
 .list:focus-visible {
@@ -100,7 +122,23 @@
 
   color: var(--color-green);
 
+  opacity: 0;
+  translate: 0 -6px;
+  transition:
+    opacity 120ms ease-in,
+    translate 120ms ease-in;
+
   cursor: pointer;
+}
+
+.open .option {
+  --delay: calc(40ms + min(var(--i, 0), 8) * 30ms);
+
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 220ms ease-out var(--delay),
+    translate 260ms cubic-bezier(0.22, 1, 0.36, 1) var(--delay);
 }
 
 /* Keyboard position inside the open list (not a Figma state: focus indication only). */
@@ -201,5 +239,15 @@
   .project .chevron {
     width: 18px;
     height: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .list,
+  .open .list,
+  .option,
+  .open .option {
+    transition: none;
   }
 }

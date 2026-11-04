@@ -29,7 +29,8 @@
   gap: 20px;
 }
 
-/* 365 sets the intro in Pretendard (Figma 0:1324); 768 and up in Hanken Grotesk Medium. */
+/* 365 sets the intro in Pretendard (Figma 0:1324); 768 and up in Hanken Grotesk, Regular instead
+   of Figma's Medium (designer feedback 2026-11-04: one step lighter). */
 .text {
   margin: 0;
 
@@ -75,7 +76,7 @@
   .text {
     font-family: var(--font-en);
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 24px;
   }
 

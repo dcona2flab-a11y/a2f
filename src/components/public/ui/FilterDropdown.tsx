@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import styles from "./FilterDropdown.module.css";
 
 export type FilterOption<T extends string> = {
@@ -22,6 +22,8 @@ type Props<T extends string> = {
 // Figma filter dropdown (Award & Activity open state: 1440 0:2325 / 1920 0:326 / 768 0:1721;
 // Project year filter: closed 1920 0:570 / 1440 0:2398 / 768 0:1913, open 1920 0:669).
 // Button + listbox; keyboard: ↑/↓, Home/End, Enter/Space to choose, Esc to close.
+// The list stays mounted so it can unfold and fold (CSS); closed, it is hidden (not focusable,
+// not in the accessibility tree).
 export default function FilterDropdown<T extends string>({ label, options, value, onChange, size = "award", className }: Props<T>) {
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -107,32 +109,31 @@ export default function FilterDropdown<T extends string>({ label, options, value
         </span>
         <span className={styles.chevron} aria-hidden="true" />
       </button>
-      {open && (
-        <ul
-          ref={listRef}
-          id={listId}
-          className={styles.list}
-          role="listbox"
-          tabIndex={-1}
-          aria-label={label}
-          aria-activedescendant={`${listId}-${activeIndex}`}
-          onKeyDown={onListKeyDown}
-        >
-          {options.map((option, index) => (
-            <li
-              key={option.value}
-              id={`${listId}-${index}`}
-              className={`${styles.option} ${index === activeIndex ? styles.active : ""}`}
-              role="option"
-              aria-selected={option.value === value}
-              onClick={() => choose(index)}
-              onPointerMove={() => setActiveIndex(index)}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        ref={listRef}
+        id={listId}
+        className={styles.list}
+        role="listbox"
+        tabIndex={-1}
+        aria-label={label}
+        aria-activedescendant={`${listId}-${activeIndex}`}
+        onKeyDown={onListKeyDown}
+      >
+        {options.map((option, index) => (
+          <li
+            key={option.value}
+            id={`${listId}-${index}`}
+            className={`${styles.option} ${index === activeIndex ? styles.active : ""}`}
+            style={{ "--i": index } as CSSProperties}
+            role="option"
+            aria-selected={option.value === value}
+            onClick={() => choose(index)}
+            onPointerMove={() => setActiveIndex(index)}
+          >
+            {option.label}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

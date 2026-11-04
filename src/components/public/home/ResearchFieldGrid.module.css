@@ -2,10 +2,20 @@
  * Figma Research Fields: 365 0:1170 (2 col, 156×240) / 768 0:1566 (2 col, 344×381)
  * / 1440 0:2154 (3 col, 411×460) / 1920 0:157 (3 col, 553×512).
  * 365 shows title, icon and subtitle only; the description is kept in the data.
+ * Top-aligned (designer feedback 2026-11-04): every card spans three rows of the grid
+ * (title / icon / text, shared through subgrid), so in a row of cards the icons and the
+ * subtitles line up even when one title wraps to more lines or one description is longer;
+ * the gaps between the three are the Figma gaps (--card-gap 16 / 22 / 30 / 42). The text row
+ * keeps at least the Figma text height + bottom padding, so the cards keep the Figma height.
+ * In the admin the card sits inside an edit wrapper: there it is laid out on its own
+ * (same order and gaps, without the cross-card alignment).
  */
 .grid {
+  --card-gap: 16px;
+
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: auto auto minmax(54px, auto);   /* 365: subtitle 40 + padding 14 */
 
   gap: 14px;
   margin: 0;
@@ -14,25 +24,28 @@
   list-style: none;
 }
 
-/* The cell's child (the card, or a wrapper around it) fills the row height. */
 .cell {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+
+  row-gap: var(--card-gap);
 }
 
+/* The cell's child (the card, or a wrapper around it) fills all three rows. */
 .cell > * {
-  flex: 1 1 auto;
+  grid-row: 1 / -1;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: subgrid;
+  align-content: start;
+  justify-items: start;
 
-  min-height: 240px;
   box-sizing: border-box;
 
+  row-gap: var(--card-gap);
   padding: 14px;
 
   background: linear-gradient(to bottom, #f3f3f3, var(--color-white));
@@ -56,7 +69,7 @@
   align-items: center;
   justify-content: center;
 
-  align-self: stretch;
+  justify-self: stretch;
 
   height: 100px;
 }
@@ -72,7 +85,7 @@
   display: flex;
   flex-direction: column;
 
-  align-self: stretch;
+  justify-self: stretch;
 
   gap: 4px;
 }
@@ -114,9 +127,13 @@
     gap: 20px;
   }
 
-  .card {
-    min-height: 381px;
+  .grid {
+    --card-gap: 22px;
 
+    grid-auto-rows: auto auto minmax(114px, auto);   /* text 94 + padding 20 */
+  }
+
+  .card {
     padding: 20px;
   }
 
@@ -158,9 +175,13 @@
     gap: 24px;
   }
 
-  .card {
-    min-height: 460px;
+  .grid {
+    --card-gap: 30px;
 
+    grid-auto-rows: auto auto minmax(125px, auto);   /* text 95 + padding 30 */
+  }
+
+  .card {
     padding: 30px;
   }
 
@@ -202,8 +223,10 @@
     gap: 30px;
   }
 
-  .card {
-    min-height: 512px;
+  .grid {
+    --card-gap: 42px;
+
+    grid-auto-rows: auto auto minmax(122px, auto);   /* text 92 + padding 30 */
   }
 
   .title {

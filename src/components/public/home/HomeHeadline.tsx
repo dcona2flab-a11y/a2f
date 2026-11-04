@@ -11,14 +11,15 @@ const LINE_CLASS = [styles.line1, styles.line2];
 
 // The headline is lettering from Figma (outlined, custom "2"), drawn per breakpoint.
 // The SVG is the visual; the hidden text is the real <h1>. The same SVG is layered twice, each
-// layer showing one line, so the two lines can leave separately on scroll (see the CSS).
+// layer showing one line, so the Home scroll motion (HomeScrollMotion) can erase each line from
+// its own bottom edge.
 export default function HomeHeadline() {
   return (
-    <h1 className={styles.headline}>
+    <h1 className={styles.headline} data-home-motion="headline">
       <span className="visually-hidden">{HOME_HEADLINE}</span>
       <span className={styles.lines} aria-hidden="true">
         {LINE_CLASS.map((lineClass) => (
-          <span key={lineClass} className={`${styles.line} ${lineClass}`}>
+          <span key={lineClass} className={`${styles.line} ${lineClass}`} data-motion-line="">
             <ArtDirectedImage
               className={styles.image}
               alt=""

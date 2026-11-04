@@ -1,11 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import close365 from "@/assets/icons/close-365.svg";
-import close768 from "@/assets/icons/close-768.svg";
 import type { NavBasePath } from "@/config/navigation";
 import styles from "./MobileMenu.module.css";
 import { useNavLinks } from "./useNavLinks";
@@ -14,12 +11,13 @@ type Props = { basePath: NavBasePath; publicationUrl: string | null; className?:
 
 // Hamburger + right-side panel for 365/768 (Figma "Home_Hambuger" frames).
 // The panel stays mounted so CSS can animate both opening and closing; when closed it is
-// `inert` and hidden from assistive tech.
+// `inert` and hidden from assistive tech. The close button sits outside the sliding panel, where
+// the hamburger is, and is drawn as two lines that cross into the X (designer feedback 2026-11-04).
 export default function MobileMenu({ basePath, publicationUrl, className }: Props) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const links = useNavLinks(basePath, publicationUrl);
 
@@ -32,19 +30,23 @@ export default function MobileMenu({ basePath, publicationUrl, className }: Prop
 
   useEffect(() => {
     if (!open) return;
-    const panel = panelRef.current;
+    const dialog = dialogRef.current;
     const toggle = toggleRef.current;
-    document.documentElement.classList.add(styles.scrollLocked);
-    panel?.querySelector<HTMLElement>("a, button")?.focus();
+    const root = document.documentElement;
+    // Locking the scroll removes a classic scrollbar; its width is kept as padding (CSS) so the
+    // page behind the panel does not shift sideways.
+    root.style.setProperty("--scrollbar-gap", `${window.innerWidth - root.clientWidth}px`);
+    root.classList.add(styles.scrollLocked);
+    dialog?.querySelector<HTMLElement>("a, button")?.focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
         return;
       }
-      // Keep Tab focus inside the panel while it is open.
-      if (event.key !== "Tab" || !panel) return;
-      const focusable = [...panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")];
+      // Keep Tab focus inside the menu while it is open.
+      if (event.key !== "Tab" || !dialog) return;
+      const focusable = [...dialog.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")];
       const first = focusable[0];
       const last = focusable.at(-1);
       if (event.shiftKey && document.activeElement === first) {
@@ -59,7 +61,8 @@ export default function MobileMenu({ basePath, publicationUrl, className }: Prop
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.documentElement.classList.remove(styles.scrollLocked);
+      root.classList.remove(styles.scrollLocked);
+      root.style.removeProperty("--scrollbar-gap");
       toggle?.focus();
     };
   }, [open]);
@@ -78,13 +81,22 @@ export default function MobileMenu({ basePath, publicationUrl, className }: Prop
         <span className={styles.toggleLines} aria-hidden="true" />
       </button>
 
-      <div className={`${styles.overlay} ${open ? styles.open : ""}`} inert={!open} aria-hidden={!open}>
+      <div
+        ref={dialogRef}
+        id={panelId}
+        className={`${styles.overlay} ${open ? styles.open : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="메뉴"
+        inert={!open}
+        aria-hidden={!open}
+      >
         <div className={styles.backdrop} onClick={() => setOpen(false)} />
-        <div ref={panelRef} id={panelId} className={styles.panel} role="dialog" aria-modal="true" aria-label="메뉴">
-          <button type="button" className={styles.close} aria-label="메뉴 닫기" onClick={() => setOpen(false)}>
-            <Image className={styles.closeIcon365} src={close365} alt="" unoptimized />
-            <Image className={styles.closeIcon768} src={close768} alt="" unoptimized />
-          </button>
+        <button type="button" className={styles.close} aria-label="메뉴 닫기" onClick={() => setOpen(false)}>
+          <span className={styles.closeLine} aria-hidden="true" />
+          <span className={styles.closeLine} aria-hidden="true" />
+        </button>
+        <div className={styles.panel}>
           <ul className={styles.list}>
             {links.map((link) => (
               <li key={link.key}>

@@ -15,12 +15,12 @@ import { DEFAULT_CONTENT } from "@/config/defaults";
 import { getPublishedDocument } from "@/services/content";
 import { sortAwardsNewestFirst } from "@/services/awards";
 import { orderHomeContent } from "@/services/home";
-import styles from "./page.module.css";
 
 export const metadata: Metadata = { title: "Home 편집" };
 
 // /admin = the public Home (same section components) with editing composed around it.
-// The wrapper switches off the Home scroll motion (ani3): editing always sees the final layout.
+// No Home scroll motion (ani3) here: HomeScrollMotion is only on the public page, so editing
+// always sees the final layout.
 // Reads the cached latest versions (refreshed by every admin save); each editor saves against
 // the version shown here (a newer save by someone else is reported as a conflict).
 export default async function AdminHomePage() {
@@ -36,61 +36,59 @@ export default async function AdminHomePage() {
   const settingsVersion = settingsDoc?.version ?? 0;
 
   return (
-    <div className={styles.staticMotion}>
-      <HomeMain>
-        <HomeHeadline />
-        <HomeCollage
-          visuals={home.visuals.main}
-          paragraphs={home.introduction.paragraphs}
-          renderVisual={(index, visual) => (
-            <HomeVisualReplace group="main" index={index} version={homeVersion}>
-              {visual}
-            </HomeVisualReplace>
-          )}
-          renderParagraph={(index, paragraph) => (
-            <Editable
-              label={`소개 문단 ${index + 1}`}
-              editor={<IntroParagraphEditor index={index} value={home.introduction.paragraphs[index]} version={homeVersion} />}
-            >
-              {paragraph}
+    <HomeMain>
+      <HomeHeadline />
+      <HomeCollage
+        visuals={home.visuals.main}
+        paragraphs={home.introduction.paragraphs}
+        renderVisual={(index, visual) => (
+          <HomeVisualReplace group="main" index={index} version={homeVersion}>
+            {visual}
+          </HomeVisualReplace>
+        )}
+        renderParagraph={(index, paragraph) => (
+          <Editable
+            label={`소개 문단 ${index + 1}`}
+            editor={<IntroParagraphEditor index={index} value={home.introduction.paragraphs[index]} version={homeVersion} />}
+          >
+            {paragraph}
+          </Editable>
+        )}
+      />
+      <WhySection
+        why={home.why}
+        renderText={(text) => (
+          <Editable label="Why A2F 문구" editor={<WhyEditor why={home.why} version={homeVersion} />}>
+            {text}
+          </Editable>
+        )}
+      >
+        <ResearchFieldGrid
+          fields={home.researchFields}
+          renderCard={(field, card) => (
+            <Editable label={`연구 분야 ${field.title}`} editor={<ResearchFieldEditor field={field} version={homeVersion} />}>
+              {card}
             </Editable>
           )}
         />
-        <WhySection
-          why={home.why}
-          renderText={(text) => (
-            <Editable label="Why A2F 문구" editor={<WhyEditor why={home.why} version={homeVersion} />}>
-              {text}
-            </Editable>
-          )}
-        >
-          <ResearchFieldGrid
-            fields={home.researchFields}
-            renderCard={(field, card) => (
-              <Editable label={`연구 분야 ${field.title}`} editor={<ResearchFieldEditor field={field} version={homeVersion} />}>
-                {card}
-              </Editable>
-            )}
-          />
-        </WhySection>
-        <HomeGallery
-          visuals={home.visuals.secondary}
-          renderVisual={(index, visual) => (
-            <HomeVisualReplace group="secondary" index={index} version={homeVersion}>
-              {visual}
-            </HomeVisualReplace>
-          )}
-        />
-        <AdminAwardSection awards={awards} version={awardsDoc?.version ?? 0} />
-        <ContactSection
-          contact={contact}
-          renderDetails={(details) => (
-            <Editable label="연락처" editor={<ContactEditor contact={contact} version={settingsVersion} />}>
-              {details}
-            </Editable>
-          )}
-        />
-      </HomeMain>
-    </div>
+      </WhySection>
+      <HomeGallery
+        visuals={home.visuals.secondary}
+        renderVisual={(index, visual) => (
+          <HomeVisualReplace group="secondary" index={index} version={homeVersion}>
+            {visual}
+          </HomeVisualReplace>
+        )}
+      />
+      <AdminAwardSection awards={awards} version={awardsDoc?.version ?? 0} />
+      <ContactSection
+        contact={contact}
+        renderDetails={(details) => (
+          <Editable label="연락처" editor={<ContactEditor contact={contact} version={settingsVersion} />}>
+            {details}
+          </Editable>
+        )}
+      />
+    </HomeMain>
   );
 }

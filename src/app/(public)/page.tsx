@@ -5,6 +5,7 @@ import HomeCollage from "@/components/public/home/HomeCollage";
 import HomeGallery from "@/components/public/home/HomeGallery";
 import HomeHeadline from "@/components/public/home/HomeHeadline";
 import HomeMain from "@/components/public/home/HomeMain";
+import HomeScrollMotion from "@/components/public/home/HomeScrollMotion";
 import ResearchFieldGrid from "@/components/public/home/ResearchFieldGrid";
 import WhySection from "@/components/public/home/WhySection";
 import { getAwards } from "@/services/awards";
@@ -13,7 +14,8 @@ import { getSettings } from "@/services/settings";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
-// Home. The admin (/admin) renders the same sections with editing added around them.
+// Home. The admin (/admin) renders the same sections with editing added around them, without
+// the scroll motion (HomeScrollMotion is public only, so editing always sees the final layout).
 export default async function HomePage() {
   const [home, awards, settings] = await Promise.all([getHomeContent(), getAwards(), getSettings()]);
 
@@ -28,6 +30,7 @@ export default async function HomePage() {
       {/* No placeholder on the public site: the section appears with the first item. */}
       {awards.length > 0 && <AwardSection awards={awards} />}
       <ContactSection contact={settings.contact} />
+      <HomeScrollMotion />
     </HomeMain>
   );
 }
