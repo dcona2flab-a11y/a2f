@@ -6,11 +6,18 @@ const publicationUrl = process.env.NOTION_PUBLICATION_URL;
 const nextConfig = {
   // `next dev` would otherwise append its own agent notes to CLAUDE.md (project rules file).
   agentRules: false,
-  // Home is the Award & Activity list; there is no /award list page.
+  // Home is the Award & Activity list; there is no list page. Award & Activity details live
+  // under /news (owner request 2026-11-11); every /award address moves there in one step.
   async redirects() {
     return [
+      { source: "/news", destination: "/#award", permanent: false },
       { source: "/award", destination: "/#award", permanent: false },
+      { source: "/award/award-:id", destination: "/news/:id", permanent: true },
+      { source: "/award/:id", destination: "/news/:id", permanent: true },
+      { source: "/admin/news", destination: "/admin#award", permanent: false },
       { source: "/admin/award", destination: "/admin#award", permanent: false },
+      { source: "/admin/award/award-:id", destination: "/admin/news/:id", permanent: true },
+      { source: "/admin/award/:id", destination: "/admin/news/:id", permanent: true },
       ...(publicationUrl ? [{ source: "/publication", destination: publicationUrl, permanent: false }] : []),
     ];
   },

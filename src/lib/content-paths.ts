@@ -1,7 +1,8 @@
 import type { Award, Project } from "@/types/content";
 
 // Public addresses of the detail pages (owner request 2026-11-11). Stored ids keep their prefix
-// ("award-…", "project-…"); the address drops it: /award/ljlujb83. A project can also have its
+// ("award-…", "project-…"); the address drops it: /news/ljlujb83 (Award & Activity live under /news
+// since 2026-11-11, owner request). A project can also have its
 // own address (`slug`, e.g. /project/talia), which then wins. Every older or alternative form
 // still finds the item, and the pages redirect it to the address below.
 
@@ -18,7 +19,7 @@ export const awardSlug = (award: Pick<Award, "id">) => strip(award.id, AWARD_PRE
 export const projectDefaultSlug = (project: Pick<Project, "id">) => strip(project.id, PROJECT_PREFIX);
 export const projectSlug = (project: Pick<Project, "id" | "slug">) => project.slug || projectDefaultSlug(project);
 
-export const awardPath = (award: Pick<Award, "id">) => `/award/${awardSlug(award)}`;
+export const awardPath = (award: Pick<Award, "id">) => `/news/${awardSlug(award)}`;
 export const projectPath = (project: Pick<Project, "id" | "slug">) => `/project/${projectSlug(project)}`;
 
 // An address segment → the item: the full id, the id without its prefix, or a project's slug.

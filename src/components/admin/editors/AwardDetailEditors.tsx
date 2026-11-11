@@ -20,7 +20,7 @@ import type { Award, AwardPerson, ImageRef } from "@/types/content";
 import AwardPeopleFields from "./AwardPeopleFields";
 import styles from "./AwardDetailEditors.module.css";
 
-// Editors for /admin/award/[id]. Each saves only its own part of the award, against the
+// Editors for /admin/news/[id]. Each saves only its own part of the award, against the
 // awards.json version the page was rendered with (a newer save elsewhere → conflict message).
 
 type Base = { award: Award; version: number };

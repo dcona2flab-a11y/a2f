@@ -14,7 +14,7 @@ import ProjectDetail from "@/components/public/project/ProjectDetail";
 import { getSiteUrl } from "@/config/site";
 import { findProject, projectPath, projectSlug } from "@/lib/content-paths";
 import { getPublishedDocument } from "@/services/content";
-import styles from "../../award/[id]/page.module.css";
+import styles from "../../news/[id]/page.module.css";
 
 type Props = { params: Promise<{ id: string }> };
 

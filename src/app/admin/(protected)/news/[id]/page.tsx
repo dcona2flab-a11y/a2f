@@ -18,7 +18,7 @@ type Props = { params: Promise<{ id: string }> };
 
 export const metadata: Metadata = { title: "Award 편집" };
 
-// /admin/award/[id] = the public detail (same component) with editing composed around it.
+// /admin/news/[id] = the public detail (same component) with editing composed around it.
 // Reads the cached latest awards.json; every editor saves against this version.
 export default async function AdminAwardDetailPage({ params }: Props) {
   const { id } = await params;

@@ -22,7 +22,8 @@ export default async function AwardDetailPage({ params }: Props) {
   const { id } = await params;
   const award = await getAwardBySegment(id);
   if (!award) notFound();
-  // Older or alternative addresses (e.g. /award/award-…) move to the current one.
+  // Older or alternative addresses (e.g. /news/award-…) move to the current one; /award/… is
+  // redirected in next.config.
   if (id !== awardSlug(award)) permanentRedirect(awardPath(award));
   return <AwardDetail award={award} />;
 }

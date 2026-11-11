@@ -73,7 +73,7 @@ export async function deleteAward(expectedVersion: number, id: string): Promise<
   });
 }
 
-// --- Partial saves from the detail page (/admin/award/[id]) ---------------------------------
+// --- Partial saves from the detail page (/admin/news/[id]) ---------------------------------
 // Each one changes only its own fields, against the awards.json version the page was opened with.
 
 async function updateAward(expectedVersion: number, id: string, patch: Partial<Award>): Promise<SaveOutcome> {

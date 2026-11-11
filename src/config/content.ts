@@ -40,6 +40,6 @@ export const LIMITS = {
 // Project list: cards shown at first and added each time the end of the list is reached.
 export const PROJECT_PAGE_SIZE = 9;
 
-// Award cards link to their detail page (/award/[id], step 5 — enabled after verification).
+// Award cards link to their detail page (/news/[id] since 2026-11-11, step 5 — enabled after verification).
 // Set to false to take the links off again (e.g. while the detail page is unavailable).
 export const AWARD_DETAIL_AVAILABLE = true;
