@@ -8,6 +8,7 @@ import {
   TEAM_DEGREES,
 } from "@/config/content";
 import { HOME_VISUAL_SLOTS } from "@/config/home";
+import { PROJECT_SLUG_MAX, PROJECT_SLUG_PATTERN } from "@/lib/content-paths";
 import { DEFAULT_TEAM_INTRO_TEXT } from "@/config/team";
 import type { DataKey } from "@/config/storage";
 import {
@@ -105,6 +106,9 @@ export const projectSchema = z.object({
   body: optionalText,
   category: z.enum(PROJECT_CATEGORIES),
   customTag: optionalText, // exactly one free-text tag, never an array
+  // Own address /project/<slug> (owner request 2026-11-11); "" = the id without its prefix.
+  // Older versions have no slug and read as "".
+  slug: z.union([z.literal(""), z.string().max(PROJECT_SLUG_MAX).regex(PROJECT_SLUG_PATTERN)]).default(""),
   member: projectMemberSchema.nullable(), // at most LIMITS.projectMembers (1)
   images: z.array(imageRefSchema), // images[0] is the representative image
   ...recordTimestamps,

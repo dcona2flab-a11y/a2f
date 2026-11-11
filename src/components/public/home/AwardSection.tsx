@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { AWARD_TYPE_META } from "@/components/public/award/AwardTypeIcon";
+import { awardPath } from "@/lib/content-paths";
 import AwardCard from "@/components/public/award/AwardCard";
 import FilterDropdown, { type FilterOption } from "@/components/public/ui/FilterDropdown";
 import Pagination from "@/components/public/ui/Pagination";
@@ -75,7 +76,7 @@ export default function AwardSection({ awards, basePath = "", toolbar, renderIte
             <li key={award.id} className={styles.item}>
               <AwardCard
                 award={award}
-                href={AWARD_DETAIL_AVAILABLE ? `${basePath}/award/${award.id}` : undefined}
+                href={AWARD_DETAIL_AVAILABLE ? `${basePath}${awardPath(award)}` : undefined}
                 position={index}
               />
               {renderItemActions?.(award)}

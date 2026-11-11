@@ -10,6 +10,7 @@ import { projectYear, projectYears } from "@/lib/utils/projects";
 import type { Project, ProjectCategory } from "@/types/content";
 import ProjectCard from "./ProjectCard";
 import styles from "./ProjectList.module.css";
+import { projectPath } from "@/lib/content-paths";
 
 type Props = {
   projects: Project[]; // all of them, newest first; filtering happens here
@@ -109,7 +110,7 @@ export default function ProjectList({ projects, basePath = "", toolbar, renderIt
         <ul className={styles.grid}>
           {visible.map((project, index) => (
             <li key={project.id} className={styles.item}>
-              <ProjectCard project={project} href={`${basePath}/project/${project.id}`} index={index} />
+              <ProjectCard project={project} href={`${basePath}${projectPath(project)}`} index={index} />
               {renderItemActions?.(project)}
             </li>
           ))}

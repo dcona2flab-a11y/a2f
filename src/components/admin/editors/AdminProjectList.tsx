@@ -22,13 +22,14 @@ type Editing = { mode: "create" | "update"; project: ProjectDraft };
 const today = () => new Date().toISOString().slice(0, 10);
 const newProjectId = () =>
   `project-${Array.from(crypto.getRandomValues(new Uint8Array(8)), (byte) => (byte % 36).toString(36)).join("")}`;
-const toDraft = ({ id, title, date, body, category, customTag, member, images }: Project): ProjectDraft => ({
+const toDraft = ({ id, title, date, body, category, customTag, slug, member, images }: Project): ProjectDraft => ({
   id,
   title,
   date,
   body,
   category,
   customTag,
+  slug,
   member,
   images,
 });
@@ -79,7 +80,7 @@ export default function AdminProjectList({ projects, version }: Props) {
               onClick={() =>
                 setEditing({
                   mode: "create",
-                  project: { id: newProjectId(), title: "", date: today(), body: "", category: "UX/UI", customTag: "", member: null, images: [] },
+                  project: { id: newProjectId(), title: "", date: today(), body: "", category: "UX/UI", customTag: "", slug: "", member: null, images: [] },
                 })
               }
             >

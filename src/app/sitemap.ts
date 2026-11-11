@@ -3,6 +3,7 @@ import { AWARD_DETAIL_AVAILABLE } from "@/config/content";
 import { getSiteUrl } from "@/config/site";
 import { getAwards } from "@/services/awards";
 import { getProjects } from "@/services/projects";
+import { awardPath, projectPath } from "@/lib/content-paths";
 
 // Public pages plus the detail pages that actually exist (no URLs for empty data).
 // Read through the public content cache, so an admin save refreshes it.
@@ -13,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/` },
     { url: `${base}/project` },
     { url: `${base}/team` },
-    ...(AWARD_DETAIL_AVAILABLE ? awards.map((award) => ({ url: `${base}/award/${award.id}`, lastModified: award.updatedAt })) : []),
-    ...projects.map((project) => ({ url: `${base}/project/${project.id}`, lastModified: project.updatedAt })),
+    ...(AWARD_DETAIL_AVAILABLE ? awards.map((award) => ({ url: `${base}${awardPath(award)}`, lastModified: award.updatedAt })) : []),
+    ...projects.map((project) => ({ url: `${base}${projectPath(project)}`, lastModified: project.updatedAt })),
   ];
 }

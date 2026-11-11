@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { SaveOutcome } from "@/components/admin/edit/InlineTextEditor";
 import { AWARD_DEGREES, PROJECT_CATEGORIES } from "@/config/content";
 import { updateProjects } from "@/lib/admin/content-updates";
+import { PROJECT_SLUG_MAX, PROJECT_SLUG_PATTERN, projectSlugConflict } from "@/lib/content-paths";
 import { firstIssue, text, uploadedImage } from "@/lib/admin/input";
 import { requireAdmin } from "@/lib/auth/session";
 import { idSchema } from "@/lib/validation/common";
@@ -19,6 +20,15 @@ const summaryFields = {
   customTag: text("태그", 40), // one free-text tag, never a list
 };
 const bodyField = text("본문", 5000);
+// Own address /project/<slug>; "" = the default address (id without "project-").
+const slugField = z
+  .string("주소: 텍스트를 입력하세요.")
+  .trim()
+  .max(PROJECT_SLUG_MAX, `주소: ${PROJECT_SLUG_MAX}자 이하로 입력하세요.`)
+  .refine(
+    (value) => value === "" || PROJECT_SLUG_PATTERN.test(value),
+    "주소: 영문 소문자, 숫자, 하이픈(-)만 쓸 수 있습니다. 하이픈은 처음·끝에 쓰거나 두 번 연속 쓸 수 없습니다.",
+  );
 const imagesField = z.array(uploadedImage("projects")).max(30, "이미지는 30장 이하로 등록하세요.");
 const memberField = z
   .object({
@@ -32,6 +42,7 @@ const memberField = z
 const projectInput = z.object({
   id: idSchema,
   ...summaryFields,
+  slug: slugField,
   body: bodyField,
   images: imagesField,
   member: memberField,
@@ -47,6 +58,8 @@ export async function saveProject(expectedVersion: number, mode: "create" | "upd
   const now = new Date().toISOString();
 
   return updateProjects(expectedVersion, (items) => {
+    const conflict = projectSlugConflict(items, project.id, project.slug);
+    if (conflict) return { error: conflict };
     const existing = items.find((item) => item.id === project.id);
     if (mode === "create") {
       if (existing) return { error: "이미 등록된 항목입니다. 새로고침 후 다시 시도해 주세요." };
@@ -83,6 +96,20 @@ export async function saveProjectSummary(expectedVersion: number, id: string, va
   const parsed = summaryInput.safeParse(values);
   if (!parsed.success) return { ok: false, message: firstIssue(parsed.error) };
   return updateProject(expectedVersion, id, parsed.data);
+}
+
+// The detail page's address editor; the page then moves to the new address.
+export async function saveProjectSlug(expectedVersion: number, id: string, slug: string): Promise<SaveOutcome> {
+  await requireAdmin();
+  const parsed = slugField.safeParse(slug);
+  if (!parsed.success) return { ok: false, message: firstIssue(parsed.error) };
+  const now = new Date().toISOString();
+  return updateProjects(expectedVersion, (items) => {
+    if (!items.some((item) => item.id === id)) return { error: "삭제된 항목입니다. 새로고침 후 확인해 주세요." };
+    const conflict = projectSlugConflict(items, id, parsed.data);
+    if (conflict) return { error: conflict };
+    return items.map((item) => (item.id === id ? { ...item, slug: parsed.data, updatedAt: now } : item));
+  });
 }
 
 export async function saveProjectBody(expectedVersion: number, id: string, body: string): Promise<SaveOutcome> {

@@ -1,3 +1,4 @@
+import { findProject } from "@/lib/content-paths";
 import { sortProjectsNewestFirst } from "@/lib/utils/projects";
 import type { Project } from "@/types/content";
 import { getPublishedDocument } from "./content";
@@ -8,7 +9,8 @@ export async function getProjects(): Promise<Project[]> {
   return sortProjectsNewestFirst(document?.items ?? []);
 }
 
-export async function getProjectById(id: string): Promise<Project | null> {
+// By address segment: the project's own address, or its id with or without the prefix.
+export async function getProjectBySegment(segment: string): Promise<Project | null> {
   const document = await getPublishedDocument("projects");
-  return document?.items.find((item) => item.id === id) ?? null;
+  return findProject(document?.items ?? [], segment);
 }

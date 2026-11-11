@@ -7,15 +7,19 @@ import {
   saveProjectBody,
   saveProjectImages,
   saveProjectMember,
+  saveProjectSlug,
   saveProjectSummary,
 } from "@/app/admin/(protected)/project-actions";
 import ConfirmDialog from "@/components/admin/edit/ConfirmDialog";
+import { useEditable } from "@/components/admin/edit/Editable";
 import ImageListEditor from "@/components/admin/edit/ImageListEditor";
 import InlineFieldsEditor from "@/components/admin/edit/InlineFieldsEditor";
 import InlineTextEditor from "@/components/admin/edit/InlineTextEditor";
 import ListControls from "@/components/admin/edit/ListControls";
 import SaveActions, { useSaveAndClose } from "@/components/admin/edit/SaveActions";
+import { Field, TextInput } from "@/components/common/form/Field";
 import { PROJECT_CATEGORIES } from "@/config/content";
+import { projectDefaultSlug, projectPath } from "@/lib/content-paths";
 import type { ImageRef, Project, ProjectMember } from "@/types/content";
 import ProjectMemberFields from "./ProjectMemberFields";
 import styles from "./AwardDetailEditors.module.css";
@@ -38,6 +42,48 @@ export function ProjectSummaryEditor({ project, version }: Base) {
       initialValues={{ title: project.title, date: project.date, category: project.category, customTag: project.customTag }}
       onSave={(values) => saveProjectSummary(version, project.id, { ...values, category: values.category as Project["category"] })}
     />
+  );
+}
+
+// Own address (/project/<slug>). The page lives at that address, so after a change it moves there.
+export function ProjectAddressEditor({ project, version, host }: Base & { host: string }) {
+  const { close } = useEditable();
+  const router = useRouter();
+  const [slug, setSlug] = useState(project.slug);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+  const submit = () =>
+    startTransition(async () => {
+      setError(null);
+      const next = slug.trim();
+      const outcome = await saveProjectSlug(version, project.id, next);
+      if (!outcome.ok) {
+        setError(outcome.message);
+        return;
+      }
+      startTransition(() => {
+        router.replace(`/admin${projectPath({ id: project.id, slug: next })}`);
+        router.refresh();
+        close();
+      });
+    });
+  return (
+    <div className={styles.editor}>
+      <Field
+        label="주소"
+        hint={`${host}/project/ 뒤에 붙는 주소입니다. 영문 소문자, 숫자, 하이픈(-)만 쓸 수 있습니다. 비워 두면 자동 주소(${projectDefaultSlug(project)})를 씁니다. 주소를 바꾸면 예전 주소는 더 이상 열리지 않습니다.`}
+      >
+        <TextInput
+          value={slug}
+          onChange={(event) => setSlug(event.target.value.toLowerCase())}
+          placeholder="예: talia"
+          autoCapitalize="none"
+          spellCheck={false}
+          autoFocus
+        />
+      </Field>
+      <SaveActions pending={pending} error={error} onSave={submit} onCancel={close} />
+    </div>
   );
 }
 

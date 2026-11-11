@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import Editable from "@/components/admin/edit/Editable";
 import {
+  ProjectAddressEditor,
   ProjectBodyEditor,
   ProjectDeleteControl,
   ProjectImagesEditor,
@@ -9,6 +11,8 @@ import {
   ProjectSummaryEditor,
 } from "@/components/admin/editors/ProjectDetailEditors";
 import ProjectDetail from "@/components/public/project/ProjectDetail";
+import { getSiteUrl } from "@/config/site";
+import { findProject, projectPath, projectSlug } from "@/lib/content-paths";
 import { getPublishedDocument } from "@/services/content";
 import styles from "../../award/[id]/page.module.css";
 
@@ -20,7 +24,7 @@ export const metadata: Metadata = { title: "Project 편집" };
 export default async function AdminProjectDetailPage({ params }: Props) {
   const { id } = await params;
   const document = await getPublishedDocument("projects");
-  const project = document?.items.find((item) => item.id === id);
+  const project = findProject(document?.items ?? [], id);
   const version = document?.version ?? 0;
 
   // Inside the admin (AdminBar stays): a short message instead of the public 404.
@@ -35,10 +39,24 @@ export default async function AdminProjectDetailPage({ params }: Props) {
     );
   }
 
+  const host = new URL(getSiteUrl()).host;
+
+  // Same addresses as the public page; older forms move to the current one.
+  if (id !== projectSlug(project)) redirect(`/admin${projectPath(project)}`);
+
   return (
     <ProjectDetail
       project={project}
-      toolbar={<ProjectDeleteControl project={project} version={version} />}
+      toolbar={
+        <>
+          <Editable label="주소" editor={<ProjectAddressEditor project={project} version={version} host={host} />}>
+            <p className={styles.address}>
+              주소 <span className={styles.addressValue}>{host}{projectPath(project)}</span>
+            </p>
+          </Editable>
+          <ProjectDeleteControl project={project} version={version} />
+        </>
+      }
       renderHeader={(header) => (
         <Editable label="제목·날짜·카테고리·태그" editor={<ProjectSummaryEditor project={project} version={version} />}>
           {header}

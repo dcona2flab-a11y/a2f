@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import Editable from "@/components/admin/edit/Editable";
 import {
   AwardBodyEditor,
@@ -9,6 +10,7 @@ import {
   AwardSummaryEditor,
 } from "@/components/admin/editors/AwardDetailEditors";
 import AwardDetail from "@/components/public/award/AwardDetail";
+import { findAward, awardPath, awardSlug } from "@/lib/content-paths";
 import { getPublishedDocument } from "@/services/content";
 import styles from "./page.module.css";
 
@@ -21,7 +23,7 @@ export const metadata: Metadata = { title: "Award 편집" };
 export default async function AdminAwardDetailPage({ params }: Props) {
   const { id } = await params;
   const document = await getPublishedDocument("awards");
-  const award = document?.items.find((item) => item.id === id);
+  const award = findAward(document?.items ?? [], id);
   const version = document?.version ?? 0;
 
   // Inside the admin (AdminBar stays): a short message instead of the public 404.
@@ -35,6 +37,9 @@ export default async function AdminAwardDetailPage({ params }: Props) {
       </main>
     );
   }
+
+  // Same addresses as the public page; older forms move to the current one.
+  if (id !== awardSlug(award)) redirect(`/admin${awardPath(award)}`);
 
   return (
     <AwardDetail

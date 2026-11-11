@@ -9,6 +9,25 @@
   color: var(--color-text-secondary);
 }
 
+/* Project detail: the page's own address (editable). */
+.address {
+  margin: 0;
+  padding: var(--space-12) 0;
+
+  font-family: var(--font-ko);
+  font-size: 14px;
+
+  color: var(--color-text-secondary);
+}
+
+.addressValue {
+  margin-left: var(--space-8);
+
+  font-family: var(--font-en);
+
+  color: var(--color-black);
+}
+
 .missing {
   display: flex;
   flex-direction: column;

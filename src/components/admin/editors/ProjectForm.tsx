@@ -6,6 +6,7 @@ import ImageListEditor from "@/components/admin/edit/ImageListEditor";
 import Button from "@/components/common/Button";
 import { Field, Select, TextArea, TextInput } from "@/components/common/form/Field";
 import { PROJECT_CATEGORIES } from "@/config/content";
+import { projectDefaultSlug } from "@/lib/content-paths";
 import type { Project } from "@/types/content";
 import ProjectMemberFields from "./ProjectMemberFields";
 import styles from "./AwardForm.module.css";
@@ -66,6 +67,18 @@ export default function ProjectForm({ mode, project, version, onSaved, onCancel,
       </Field>
       <Field label="태그 (1개)" hint="상세 페이지에 카테고리 옆에 표시됩니다. 비워 두면 표시하지 않습니다.">
         <TextInput value={draft.customTag} onChange={(event) => set("customTag", event.target.value)} />
+      </Field>
+      <Field
+        label="주소 (선택)"
+        hint={`a2flab.org/project/ 뒤에 붙는 주소입니다. 영문 소문자, 숫자, 하이픈(-)만 쓸 수 있습니다. 비워 두면 자동 주소(${projectDefaultSlug(draft)})를 씁니다.`}
+      >
+        <TextInput
+          value={draft.slug}
+          onChange={(event) => set("slug", event.target.value.toLowerCase())}
+          placeholder="예: talia"
+          autoCapitalize="none"
+          spellCheck={false}
+        />
       </Field>
       <Field label="본문" hint="빈 줄로 문단을 나눕니다.">
         <TextArea value={draft.body} onChange={(event) => set("body", event.target.value)} />
