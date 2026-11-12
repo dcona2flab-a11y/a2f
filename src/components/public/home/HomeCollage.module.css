@@ -173,6 +173,10 @@
 .collage[data-motion] [data-motion-layer] {
   translate: 0 calc(var(--travel, 0px) * -1);
 
+  /* The wipe is cut by clip-path; the mask only softens the edge (older Safari ignores or does
+     not repaint the var()-driven mask — see HomeHeadline.module.css). */
+  clip-path: inset(0 0 var(--cut, 0px) 0);
+
   mask-image: linear-gradient(
     to bottom,
     #000 calc(100% - var(--cut, 0px) - var(--edge, 0px)),

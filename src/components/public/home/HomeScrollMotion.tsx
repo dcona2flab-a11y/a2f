@@ -224,6 +224,7 @@ function startHomeMotion(collage: HTMLElement, headline: HTMLElement) {
       const edge = Math.min(MOTION.titleFeather * s.scale, height, Math.max(0, full - height) * 0.75);
       line.el.style.setProperty("--cut", `${Math.min(inset, full).toFixed(2)}px`);
       line.el.style.setProperty("--edge", `${edge.toFixed(2)}px`);
+      line.el.toggleAttribute("data-gone", height <= 0);
     }
   };
 

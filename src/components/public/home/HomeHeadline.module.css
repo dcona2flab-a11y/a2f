@@ -61,12 +61,27 @@
  * is sticky at its own position (--motion-top), so the lettering stays where it is, and each line
  * loses --cut px from the bottom of its band with an --edge px soft edge (the lower strokes go
  * first; both lines lose the same amount, so line 2 is gone first). Static without [data-motion].
+ * The cut itself is a clip-path; the mask only softens its edge. Older Safari (iOS 17) does not
+ * apply or repaint the var()-driven gradient mask, and with the mask alone the headline stayed
+ * on screen over the next section (feedback 2026-11-12). A fully cut line is [data-gone].
  */
 .headline[data-motion] {
   position: sticky;
   top: var(--motion-top);
 
   pointer-events: none;
+}
+
+.headline[data-motion] .line1 {
+  clip-path: inset(0 0 calc(44.2% + var(--cut, 0px)) 0);
+}
+
+.headline[data-motion] .line2 {
+  clip-path: inset(55.8% 0 var(--cut, 0px) 0);
+}
+
+.headline[data-motion] .line[data-gone] {
+  visibility: hidden;
 }
 
 .headline[data-motion] .line {
